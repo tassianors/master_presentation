@@ -1,46 +1,44 @@
 %-------------------------------------------------------------------------------------------------
 \section{Introdução} 
 %-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Definições}
 
-\frame{\frametitle{Introdução}
+\begin{block}{Foco em sistemas SISO}
+Sistemas {\it{Single input single output}} (SISO) discretos:
+\begin{equation}
+y(t)=G_0(z)u(t)+H_0(z)e(t)
+\nonumber
+\end{equation}
+onde $G_0(z)$ é a representação da planta real do sistema, $H_0$ é a representação do filtro que atua sobre o ruido
+$e(t)$. $y(t)$ é a saída e $u(t)$ é a entrada do sistema.
+
+\end{block}
+\end{frame}
+
+%-------------------------------------------------------------------------------------------------
+\subsection{Identificação de sistemas} 
+%-------------------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definições}
+\framesubtitle{Identificação de sistemas}
 Identificação de sistemas pode ser dividido em 3 partes principais:
 
-	\begin{itemize}
-		\item O sistema real a ser identificado $\mathcal{S}$
-			\begin{equation}
-				\mathcal{S}:\;\; y(t)=G_0(q)u(t)+H_0(q)e(t)
-			\label{eq:si_intro_true_system}
-			\end{equation}
+\begin{itemize}
+	\item O sistema real a ser identificado $\mathcal{S}$
+ 	\begin{equation}
+		\mathcal{S}:\;\; y(t)=G_0(z)u(t)+H_0(z)e(t)
+		\label{eq:si_intro_true_system}
+	\end{equation}
 
-		\item A classe de modelos a ser utilizada na identificação $\mathcal{M}$
-			\begin{equation}
-				\mathcal{M}: \;\;\left \{ G(q, \theta), H(q, \theta) | \theta \in D_{\mathcal{M}} \right \}
-			\label{eq:si_intro_model}
-			\end{equation}
+	\item A classe de modelos a ser utilizada na identificação $\mathcal{M}$
+	\begin{equation}
+		\mathcal{M}: \;\;\left \{ G(z, \theta), H(z, \theta) | \theta \in D_{\mathcal{M}} \right \}
+		\label{eq:si_intro_model}
+	\end{equation}
 
-		\item Algum critério para elencar qual modelo dentro da classe de modelos melhor
-		consegue representar o sistema $\mathcal{S}$ nas propriedades escolhidas	
-	\end{itemize}
-}
-
-\frame{\frametitle{Modelagem de sistemas não lineares}
-  Existem diversas famílias de modelos para representar sistemas não lineares. Algumas delas são:
-
-	\begin{itemize}
-		\item Wiener e Hammerstein
-		\item Série de Volterra
-		\item Redes Neurais: multi camada e recorrentes
-		\item Funções Radiais de Base
-		\item Modelos NARMAX
-	\end{itemize}
-
-	\begin{block}{NARMAX}
-	Nonlinear Autoregressive Moving Average Model with Exogenous Variables
-	\begin{eqnarray}\nonumber
-		y(t)&=&F [ y(t-1), ..., y(t-n_y), u(t-1), ... , u(t-n_u),\\
-		&&  e(t),e(t-1), ... , e(t-n_e) ]
-	\nonumber
-	\end{eqnarray}
-	\end{block}
-}
-
+	\item Algum critério para elencar qual modelo dentro da classe de modelos melhor
+	consegue representar o sistema $\mathcal{S}$ nas propriedades escolhidas
+\end{itemize}
+\end{frame}
