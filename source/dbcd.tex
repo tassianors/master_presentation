@@ -1,0 +1,60 @@
+%-------------------------------------------------------------------------------------------------
+\section{Projeto de controladores baseados em dados}
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Referência Virtual para identificação de controladores}
+\linespread{1.3}
+
+\begin{block}{Ideia base}
+	\begin{itemize}
+	\item Escolher um modelo para representar o sistema em malha fechada $M(z)$
+	\item Aplicar um sinal $u(t)$ sobre a planta, e com base na saída $y(t)$ e no
+	modelo $M(z)$, obter os sinais virtuais $\bar{r}(t)$ e $e(t)$.
+	\end{itemize}
+\end{block}
+
+\begin{figure}[htbp]
+\center
+\scalebox{0.8} % Change this value to rescale the drawing.
+{
+\begin{pspicture}(0,-1.4292188)(9.02,1.4692187)
+\pscircle[linewidth=0.04,linestyle=dashed,dash=0.16cm 0.16cm,dimen=outer](1.4,0.97078127){0.2}
+\psframe[linewidth=0.04,linestyle=dashed,dash=0.16cm 0.16cm,dimen=outer](4.8,1.3707813)(3.0,0.57078123)
+\psframe[linewidth=0.04,dimen=outer](7.6,1.3707813)(6.0,0.57078123)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(0.0,0.97078127)(1.2,0.97078127)
+\psline[linewidth=0.04cm,linestyle=dashed,dash=0.16cm 0.16cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(1.6,0.97078127)(3.0,0.97078127)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(4.8,0.97078127)(6.0,0.97078127)
+\psline[linewidth=0.04cm](7.6,0.97078127)(9.0,0.97078127)
+\psline[linewidth=0.04cm,linestyle=dashed,dash=0.16cm 0.16cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{<-}(1.4,0.7707813)(1.4,-0.02921875)
+\psline[linewidth=0.04cm,linestyle=dashed,dash=0.16cm 0.16cm](1.4,-0.02921875)(8.4,-0.02921875)
+\psline[linewidth=0.04cm,linestyle=dashed,dash=0.16cm 0.16cm](8.4,-0.02921875)(8.4,0.97078127)
+\usefont{T1}{ptm}{m}{n}
+\rput(1.1126562,1.2807813){+}
+\usefont{T1}{ptm}{m}{n}
+\rput(1.6473438,0.68078125){-}
+\usefont{T1}{ptm}{m}{n}
+\rput(0.47,1.2707813){\small $\bar{r}(t)$}
+\usefont{T1}{ptm}{m}{n}
+\rput(3.99,0.97078127){\small $C(z, \rho)$}
+\usefont{T1}{ptm}{m}{n}
+\rput(6.76,0.9507812){\small $G_0(z)$}
+\usefont{T1}{ptm}{m}{n}
+\rput(5.51,1.2707813){\small $u(t)$}
+\usefont{T1}{ptm}{m}{n}
+\rput(2.25,1.2707813){\small $e(t)$}
+\usefont{T1}{ptm}{m}{n}
+\rput(8.3,1.2707813){\small $y(t)$}
+\psframe[linewidth=0.04,dimen=outer](6.0,-0.62921876)(3.8,-1.4292188)
+\usefont{T1}{ptm}{m}{n}
+\rput(4.91,-1.0492188){\small $M^{-1}(z)$}
+\psline[linewidth=0.04cm](9.0,0.97078127)(9.0,-1.0292188)
+\psline[linewidth=0.04cm](9.0,-1.0292188)(6.0,-1.0292188)
+\psline[linewidth=0.04cm](3.8,-1.0292188)(0.0,-1.0292188)
+\psline[linewidth=0.04cm](0.0,-1.0292188)(0.0,0.97078127)
+\end{pspicture} 
+}
+\caption{Diagrama de blocos e sinais reais e virtuais envolvidos}
+\label{fig:vrft_method_cl}
+\end{figure}
+
+\end{frame}
