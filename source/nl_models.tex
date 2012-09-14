@@ -1,25 +1,175 @@
 %-------------------------------------------------------------------------------------------------
-\section{Modelos Não Lineares} 
+\section{Classes de Modelos}
+%-------------------------------------------------------------------------------------------------
+\subsection{Classes de modelos lineares} 
 %-------------------------------------------------------------------------------------------------
 \begin{frame}
-	\frametitle{Classe de modelos racionais NARMAX}
-		\linespread{1.3}
+\frametitle{Classes de modelos}
+\framesubtitle{Sistemas lineares - SISO de tempo discreto}
+
+\begin{columns}
+\column{0.6\textwidth}
+	\begin{block}{Classe de modelos genérica}
+	\begin{equation}
+		A(z)y(t)=\frac{B(z)}{F(z)}u(t)+\frac{C(z)}{D(z)}e(t)
+		\nonumber
+	\end{equation}
+	\end{block}
+	onde:
+	\begin{align*}
+		A(z, \theta) &= 1+a_1z^{-1}+...+a_{na}z^{-n_a} \\ 
+		B(z, \theta) &= b_1z^{-1}+...+b_{nb}z^{-n_b}\\ 
+		C(z, \theta) &= 1+c_1z^{-1}+...+c_{nc}z^{-n_c}\\ 
+		D(z, \theta) &= 1+d_1z^{-1}+...+d_{nd}z^{-n_d}\\ 
+		F(z, \theta) &= 1+f_1z^{-1}+...+f_{nf}z^{-n_f}
+	\end{align*}
 	
-	Consiste na divisão de dois polinômios: 
+\column{0.4\textwidth}
+\begin{small}
+\begin{table}
+\begin{center}
+\label{table:si_modeling_models}
+\begin{tabular}{cl}
+\hline
+        Polinômios $\neq 1$ & Nome   \\
+\hline
+        B                 & FIR  	      \\ 
+        AB                & ARX           \\ 
+        ABC               & ARMAX         \\ 
+        AC                & ARMA          \\ 
+        ABD               & ARARX         \\ 
+        ABCD              & ARARMAX       \\ 
+        BF                & OE            \\ 
+        BFCD              & Box-Jenkins   \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\end{small}
+\end{columns}
+\end{frame}
 
-\begin{eqnarray}\nonumber
-y(t)&=&\frac
-{a(y(t-1), ..., y(t-n_y), u(t-1), ..., u(t-n_u))}
-{b(y(t-1), ..., y(t-n_y), u(t-1), ..., u(t-n_u))}\\
-&&  +c(e(t-1), ... , e(t-n_e)) +e(t)
-\label{eq:nl_alg_rational}
-\end{eqnarray}
+%-------------------------------------------------------------------------------------------------
+\subsection{Classes de modelos não lineares} 
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Classes de modelos}
+\framesubtitle{Sistemas não lineares}
 
-\begin{block}{Exemplo}
+\begin{itemize}
+  \item Muitos são os tipos de classes de modelos para sistemas não lineares.
+  \item Eles podem ser divididos em dois típos principais:
+\begin{itemize}
+  \item Não linearidades estáticas
+  \item Não linearidades dinâmicas  
+\end{itemize}
+	\item Diversas classes de modelos se diferenciam pela escolha da base que irá representar o sistema.
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Classes de modelos - Wiener e Hammerstein}
+\framesubtitle{Sistemas não lineares}
+
+\begin{columns}
+\column{0.5\textwidth}
+\begin{block}{Representa não linearidades estáticas}
+\textcolor{blue}{Wiener}: Não linearidade acoplada na saída do sistema
+
+\textcolor{blue}{Hammerstein}: Não linearidade acoplada na entrada do sistema
+\end{block}
+
+\column{0.5\textwidth}
+\begin{figure}[htbp]
+\center
+\scalebox{0.6} % Change this value to rescale the drawing.
+{
+\begin{pspicture}(0,-1.6)(9.439062,1.6)
+\usefont{T1}{ptm}{m}{n}
+\rput(0.52453125,1.31){$u(t)$}
+\usefont{T1}{ptm}{m}{n}
+\rput(3.9557812,1.31){$f(u(t))$}
+\usefont{T1}{ptm}{m}{n}
+\rput(7.554531,1.35){$y(t)$}
+\usefont{T1}{ptm}{m}{n}
+\rput(5.8759375,1.15){Modelo}
+\usefont{T1}{ptm}{m}{n}
+\rput(5.7834377,0.75){Linear}
+\usefont{T1}{ptm}{m}{n}
+\rput(2.1957812,1.03){$f(\cdot)$}
+\psframe[linewidth=0.04,dimen=outer](3.0,1.6)(1.2,0.4)
+\psframe[linewidth=0.04,dimen=outer](6.8,1.6)(5.0,0.4)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(3.0,1.0)(5.0,1.0)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(0.0,1.0)(1.2,1.0)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(6.8,1.0)(8.0,1.0)
+\usefont{T1}{ptm}{m}{n}
+\rput(0.52453125,-0.69){$u(t)$}
+\usefont{T1}{ptm}{m}{n}
+\rput(3.9357812,-0.69){$z(t)$}
+\usefont{T1}{ptm}{m}{n}
+\rput(2.0759375,-0.85){Modelo}
+\usefont{T1}{ptm}{m}{n}
+\rput(1.9834375,-1.25){Linear}
+\usefont{T1}{ptm}{m}{n}
+\rput(5.9957814,-0.99){$f(\cdot)$}
+\psframe[linewidth=0.04,dimen=outer](3.0,-0.4)(1.2,-1.6)
+\psframe[linewidth=0.04,dimen=outer](6.8,-0.4)(5.0,-1.6)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(3.0,-1.0)(5.0,-1.0)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(0.0,-1.0)(1.2,-1.0)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(6.8,-1.0)(8.0,-1.0)
+\usefont{T1}{ptm}{m}{n}
+\rput(8.204532,-0.65){$y(t)=f(z(t))$}
+\end{pspicture} 
+}
+\caption{Acima: modelo de Hammerstein. Abaixo: Modelo de Wiener.}
+\label{fig:nl_models_hammerstein_wiener}
+\end{figure}
+\end{columns}
+
+\end{frame}
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Classes de modelos}
+\framesubtitle{Sistemas não lineares}
+
+\begin{itemize}
+  \item Voltera: Relaciona valores passados da entrada com o valor atual da saída.
+  	\begin{equation}
+		y(t)=\sum_{j=1}^{\infty}\int_{-\infty}^{\infty}\cdots \int_{-\infty}^{\infty}
+		h_j(\tau_1, ... ,\tau_j) \prod_{i=1}^{j}u(t-\tau_i)d\tau_i
+	\nonumber
+	\end{equation}
+  \item Redes Neurais: 
+  \begin{equation}
+	x=f\left ( \sum_{j=1}^{n}\omega_j x_j +b \right )
+	\label{eq:nl_models_neural}
+  \end{equation}
+  \begin{itemize}
+    \item Redes neurais multi camadas
+    \item Redes neurais recorrente
+  \end{itemize}
+  \item Funções radiais de base: Casos particulares de redes neurais, mas lineares nos parametros $\omega_i$.
+  \begin{equation}
+	f(y)=\omega_0+\sum_{i}\omega_i \phi (\left \| y-c_i \right \|)
+	\label{eq:nl_models_rbf}
+  \end{equation}	
+\end{itemize}
+
+\end{frame}
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Classes de modelos - NARMAX}
+\framesubtitle{Sistemas não lineares}
+
+\begin{block} {Nonlinear Autoregressive Moving Average model with eXogenous variables}
 \begin{equation}
-	y(t)=\frac{\theta_1y(t-1)+\theta_2y(t-1)u(t-1)+\theta_3u(t-1)}{1+\theta_4y^{2}(t-1)+\theta_5y^{2}(t-2)}
-\label{eq:nl_rat_exemple2}
+y(t)=\theta^T\Phi_{nl}(y, u, e)
+\label{eq:nlin_models_narmax_generic}
 \end{equation}
+onde $\Phi_{nl}(\cdot)$ denota um campo vetorial que depende dos valores passados de $y(t)$ e presente e passados de
+$u(t)$ e $e(t)$; $\theta$ é o vetor de parâmetros a ser identificado.
 \end{block}
 
 \end{frame}

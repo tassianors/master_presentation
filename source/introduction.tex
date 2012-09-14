@@ -38,7 +38,159 @@ Identificação de sistemas pode ser dividido em 3 partes principais:
 		\label{eq:si_intro_model}
 	\end{equation}
 
-	\item Algum critério para elencar qual modelo dentro da classe de modelos melhor
-	consegue representar o sistema $\mathcal{S}$ nas propriedades escolhidas
 \end{itemize}
 \end{frame}
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definições}
+\framesubtitle{Identificação de sistemas}
+
+\begin{itemize}
+	\item Algum critério para elencar qual modelo dentro da classe de modelos melhor
+	consegue representar o sistema $\mathcal{S}$ nas propriedades escolhidas.
+	\begin{block}{Neste trabalho optou-se por:}
+	\begin{equation}
+		V(\theta)=\frac{1}{N}\sum_{t=1}^{N}\frac{1}{2} \varepsilon ^2(t, \theta)
+		\label{eq:si_obj_etim_lsm_v}
+	\end{equation}
+	\end{block}
+	onde $\varepsilon (t,\theta)$ é o erro de predição e pode ser definido como:
+	
+	\begin{equation}
+		\varepsilon (t,\theta)=H^{-1}(z, \theta)\left \{ y(t)-G(z, \theta)u(t) \right \}
+	\nonumber
+	\end{equation}
+\end{itemize}
+\end{frame}
+
+%-------------------------------------------------------------------------------------------------
+\subsection{Propriedades estatísticas das estimativas} 
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Definições}
+\framesubtitle{Propriedades estatisticas das estimativas}
+
+\begin{itemize}
+  \item $\theta$: Representa a estimativa obtida com um experimento.
+  \item $\theta_0$: conjunto de parametros que faz com que:
+  
+  \begin{equation}
+  G(z, \theta_0)\equiv G_0(z)
+  \nonumber
+  \end{equation}
+  
+  \item $\hat{\theta}_N$: Estimativa para um certo valor de $N$ pontos.
+  \item $\theta^*$: Valor de convergência da estimativa quando $N \to \infty$:
+  \begin{equation}
+  \lim_{N \rightarrow \infty }\hat{\theta}_N = \theta^*
+  \nonumber
+  \end{equation}
+\end{itemize}
+\end{frame}
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definições}
+\framesubtitle{Propriedades estatisticas das estimativas - Erros envolvidos}
+
+\begin{block}{Erros atrelados às estimativas}
+\begin{align*}
+\text{Erro de variância} &= G(z, \hat{\theta}_N)-G(z, \theta^*)\\ 
+\text{Erro de polarização}  &= G(z, \theta^*)-G_0(z) 
+\end{align*}
+\end{block}
+
+Onde observa-se que o erro de polarização é a diferença entre o valor real $G_0(z)$ e a melhor aproximação possível
+(quando $N\to\infty$) $G(z, \theta^*)$.
+
+Erro de variância é a diferênça entre cada uma das estimativas obtidas e a estimativa quando $N \to \infty$ $G(z,
+\theta^*)$
+\end{frame}
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Definições}
+\framesubtitle{Propriedades estatisticas das estimativas - Elipse de confiança}
+
+\begin{columns}
+\column{0.5\textwidth}
+\fontsize{8}{8}\selectfont
+Região de confiança é definido pela elipse:
+
+\begin{equation}
+\tiny U_\theta=\left \{ \theta \mid (\hat{\theta}_N-\theta_0)^T P^{-1}_{N}(\hat{\theta}_N-\theta_0) \le
+\chi^2_{\alpha}(n) \right \}
+\nonumber
+\end{equation}
+onde:
+
+\begin{equation}
+\small P(\theta^*)\overset{\underset{\mathrm{\Delta}}{\,}}{=}\lim_{N\to
+\infty}N\;E(\hat{\theta}_N-\theta^*)(\hat{\theta}_N-\theta^*)^T
+\nonumber
+\end{equation}
+
+\column{0.5\textwidth}
+\begin{figure}[htbp]
+	\center
+	\includegraphics[width=0.95\columnwidth]{figures/si_covar_elipse.eps}
+	\caption{Estimativas de um sistema e a elipse representando a região de confiança para um $\chi$ de 99\%.}
+	\label{fig:si_covar_elipse}
+\end{figure}
+\end{columns}
+\end{frame}
+%-------------------------------------------------------------------------------------------------
+\subsection{Sinais utilizados} 
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Definições}
+\framesubtitle{Sinal PRBS}
+ 
+\begin{block}{Sinal PRBS}
+\begin{equation}
+u(t)=rem(A(z)u(t), 2)=rem(a_1 u(t-1)+...+a_n u(t-n), 2)
+\label{eq:si_project_signal_prbs}
+\end{equation}
+\end{block}
+
+\begin{columns}
+\column{0.35\textwidth}
+
+\begin{table}
+\fontsize{6}{8}\selectfont
+\begin{center}
+\begin{tabular}{ccc}
+\hline
+        Ordem $n$ & $M=2^n-1$ & $a_k$ não   \\
+        & & zeros para $k$ \\
+\hline
+        2       & 3        & 1, 2       \\
+        3       & 7        & 2, 3       \\
+        4       & 15       & 1, 4       \\
+        5       & 31       & 2, 5       \\
+        6       & 63       & 1, 6       \\
+        7       & 127      & 3, 7       \\
+        8       & 255      & 1, 2, 7, 8 \\
+        9       & 511      & 4, 9       \\
+        10      & 1023     & 7, 10      \\
+        11      & 2047     & 9, 11      \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\column{0.7\textwidth}
+\begin{figure}[htbp]
+	\center
+	\includegraphics[width=0.95\columnwidth]{figures/si_project_prbs.eps}
+	\caption{Sinal PRBS para $n=7$}
+	\label{fig:si_project_prbs}
+\end{figure}
+\end{columns}
+\end{frame}
+
+
