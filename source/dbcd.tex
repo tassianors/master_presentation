@@ -1,21 +1,123 @@
 %-------------------------------------------------------------------------------------------------
 \section{Projeto de controladores baseados em dados}
 %-------------------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Referência Virtual para identificação de controladores}
-\linespread{1.3}
 
-\begin{block}{Ideia base}
-	\begin{itemize}
-	\item Escolher um modelo para representar o sistema em malha fechada $M(z)$
-	\item Aplicar um sinal $u(t)$ sobre a planta, e com base na saída $y(t)$ e no
-	modelo $M(z)$, obter os sinais virtuais $\bar{r}(t)$ e $e(t)$.
-	\end{itemize}
+\begin{frame}
+\frametitle{Projeto de controladores baseados em dados}
+\framesubtitle{Definições}
+
+\begin{block}{Sistema básico de controle}
+\begin{figure}
+\center
+% Generated with LaTeXDraw 2.0.8
+% Wed Jun 20 23:11:16 BRT 2012
+% \usepackage[usenames,dvipsnames]{pstricks}
+% \usepackage{epsfig}
+% \usepackage{pst-grad} % For gradients
+% \usepackage{pst-plot} % For axes
+\scalebox{0.7} % Change this value to rescale the drawing.
+{
+\begin{pspicture}(0,-1.8192188)(9.851875,1.8192188)
+\pscircle[linewidth=0.04,dimen=outer](1.431875,-0.79921883){0.2}
+\psframe[linewidth=0.04,dimen=outer](4.431875,-0.3992188)(2.631875,-1.1992189)
+\psframe[linewidth=0.04,dimen=outer](7.231875,-0.3992188)(5.631875,-1.1992189)
+\pscircle[linewidth=0.04,dimen=outer](8.431875,-0.79921883){0.2}
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(0.031875,-0.79921883)(1.231875,-0.79921883)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(1.631875,-0.79921883)(2.631875,-0.79921883)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(4.431875,-0.79921883)(5.631875,-0.79921883)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(7.231875,-0.79921883)(8.231875,-0.79921883)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(8.43,0.39921868)(8.431875,-0.5992188)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(8.631875,-0.79921883)(9.831875,-0.79921883)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{<-}(1.431875,-0.99921876)(1.431875,-1.7992188)
+\psline[linewidth=0.04cm](1.431875,-1.7992188)(9.231875,-1.7992188)
+\psline[linewidth=0.04cm](9.231875,-1.7992188)(9.231875,-0.79921883)
+\usefont{T1}{ptm}{m}{n}
+\rput(1.0698436,-0.48921886){+}
+\usefont{T1}{ptm}{m}{n}
+\rput(8.069845,-0.48921886){+}
+\usefont{T1}{ptm}{m}{n}
+\rput(8.069845,-1.0892189){+}
+\usefont{T1}{ptm}{m}{n}
+\rput(1.6339064,-1.0892189){-}
+\usefont{T1}{ptm}{m}{n}
+\rput(0.441875,-0.49921885){\small $r(t)$}
+\usefont{T1}{ptm}{m}{n}
+\rput(3.561875,-0.79921883){\small $C(z, \theta)$}
+\usefont{T1}{ptm}{m}{n}
+\rput(6.331875,-0.8192189){\small $G_0(z)$}
+\usefont{T1}{ptm}{m}{n}
+\rput(5.081875,-0.49921885){\small $u(t)$}
+\usefont{T1}{ptm}{m}{n}
+\rput(1.941875,-0.49921885){\small $\epsilon (t)$}
+\usefont{T1}{ptm}{m}{n}
+\rput(8.851875,0.12078118){\small $\nu(t)$}
+\usefont{T1}{ptm}{m}{n}
+\rput(9.271875,-0.49921885){\small $y(t)$}
+\psframe[linewidth=0.04,dimen=outer](9.231875,1.2007811)(7.631875,0.40078118)
+\usefont{T1}{ptm}{m}{n}
+\rput(8.411875,0.7807812){\small $H_0(z)$}
+\psline[linewidth=0.04cm](8.43,1.1992186)(8.43,1.7992188)
+\usefont{T1}{ptm}{m}{n}
+\rput(8.871875,1.5807811){\small $e(t)$}
+\end{pspicture} 
+}
+\caption{Representação de um sistema de controle em malha fechada, com ruído aditivo na saída.}
+\label{fig:vrft_db_control_loop}
+\end{figure}
 \end{block}
 
-\begin{figure}[htbp]
+\begin{equation}
+T(z, \theta)=\frac{C(z,\theta)G_0(z)}{1+C(z,\theta)G_0(z)}
+\label{eq:vrft_db_closed_loop}
+\end{equation}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Projeto de controladores baseados em dados}
+\framesubtitle{Critérios de perfomance}
+
+\begin{itemize}
+  \item Seguimento de referência,
+  \item Rejeição ao ruído e 
+  \item Uso reduzido de esforço de controle. 
+\end{itemize}
+
+Para o objetivo de \textcolor{blue}{seguimento de referência}, a performance pode ser avaliada pela norma:
+\begin{equation}
+J_y(\theta)\overset{\underset{\mathrm{\Delta}}{\,}}{=}  \bar{E} \left [ y(t)-y_d(t) \right ]^2 = \bar{E}\left [
+(T(z,\theta)-T_d(z))r(t) \right ]^2
+\nonumber
+\end{equation}
+
+\begin{block}{Controlador ideal - Seguimento de referência}
+\begin{equation}
+C_d(z)=\frac{T_d(z)}{G_0(z)(1-T_d(z))}
+\nonumber
+\end{equation}
+\end{block}
+\end{frame}
+
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+\subsection{Referência Virtual}
+%-------------------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Referência Virtual para identificação de controladores}
+\framesubtitle{Método VRFT}
+
+\begin{itemize}
+  \item Método VRFT utiliza referência virtual para obtenção dos sinais necessários à identificação. 
+\end{itemize}
+
+\begin{figure}
 \center
-\scalebox{0.8} % Change this value to rescale the drawing.
+\scalebox{0.7} % Change this value to rescale the drawing.
 {
 \begin{pspicture}(0,-1.4292188)(9.02,1.4692187)
 \pscircle[linewidth=0.04,linestyle=dashed,dash=0.16cm 0.16cm,dimen=outer](1.4,0.97078127){0.2}
@@ -35,26 +137,71 @@
 \usefont{T1}{ptm}{m}{n}
 \rput(0.47,1.2707813){\small $\bar{r}(t)$}
 \usefont{T1}{ptm}{m}{n}
-\rput(3.99,0.97078127){\small $C(z, \rho)$}
+\rput(3.99,0.97078127){\small $C(z, \theta)$}
 \usefont{T1}{ptm}{m}{n}
 \rput(6.76,0.9507812){\small $G_0(z)$}
 \usefont{T1}{ptm}{m}{n}
 \rput(5.51,1.2707813){\small $u(t)$}
 \usefont{T1}{ptm}{m}{n}
-\rput(2.25,1.2707813){\small $e(t)$}
+\rput(2.25,1.2707813){\small $\epsilon (t)$}
 \usefont{T1}{ptm}{m}{n}
 \rput(8.3,1.2707813){\small $y(t)$}
 \psframe[linewidth=0.04,dimen=outer](6.0,-0.62921876)(3.8,-1.4292188)
 \usefont{T1}{ptm}{m}{n}
-\rput(4.91,-1.0492188){\small $M^{-1}(z)$}
+\rput(4.91,-1.0492188){\small $T_d^{-1}(z)$}
 \psline[linewidth=0.04cm](9.0,0.97078127)(9.0,-1.0292188)
 \psline[linewidth=0.04cm](9.0,-1.0292188)(6.0,-1.0292188)
 \psline[linewidth=0.04cm](3.8,-1.0292188)(0.0,-1.0292188)
 \psline[linewidth=0.04cm](0.0,-1.0292188)(0.0,0.97078127)
 \end{pspicture} 
 }
-\caption{Diagrama de blocos e sinais reais e virtuais envolvidos}
 \label{fig:vrft_method_cl}
+\end{figure}
+
+\begin{itemize}
+  \item O método VRFT faz com que a função custo a ser minimizada seja quadrática em $\theta$, não recaindo em mínimos
+  locais.
+\end{itemize}
+
+\end{frame}
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Referência Virtual para identificação de controladores}
+\framesubtitle{Método VRFT - função custo de um sistem hipotético}
+
+\begin{figure}
+\center
+% Generated with LaTeXDraw 2.0.8
+% Mon Jul 02 22:05:15 BRT 2012
+% \usepackage[usenames,dvipsnames]{pstricks}
+% \usepackage{epsfig}
+% \usepackage{pst-grad} % For gradients
+% \usepackage{pst-plot} % For axes
+\scalebox{0.55} % Change this value to rescale the drawing.
+{
+\begin{pspicture}(0,-4.62)(11.799063,4.62)
+\psbezier[linewidth=0.04](0.9,3.3)(2.1,3.2)(2.0225368,2.3742967)(2.1565964,1.5166456)(2.290656,0.6589943)(2.616248,-1.3127834)(3.008854,-0.5402044)(3.4014597,0.23237456)(3.6584003,0.8693678)(3.811938,0.20167358)(3.9654756,-0.4660206)(4.5199084,-3.4794219)(5.1017394,-3.533306)(5.68357,-3.5871902)(8.0,1.8)(9.5,3.2)
+\psbezier[linewidth=0.04,linestyle=dashed,dash=0.16cm 0.16cm](0.4,2.2)(2.2,-2.6)(3.960841,-3.4989967)(5.12,-3.54)(6.279159,-3.5810034)(9.3,-1.9)(10.6,1.9)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 4.0,arrowlength=1.4,arrowinset=0.4]{<-}(1.1,4.6)(1.2,-4.6)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 4.0,arrowlength=1.4,arrowinset=0.4]{->}(0.0,-3.9)(11.3,-3.9)
+\psline[linewidth=0.04cm,linestyle=dotted,dotsep=0.16cm](5.1,-4.0)(5.0,3.1)
+\usefont{T1}{ppl}{m}{n}
+\rput(5.114531,-4.19){$\theta^*$}
+\usefont{T1}{ppl}{m}{n}
+\rput(11.014531,-4.19){$\theta$}
+\usefont{T1}{ppl}{m}{n}
+\rput(0.5545313,4.01){$J(\theta)$}
+\usefont{T1}{ppl}{m}{n}
+\rput(2.5545313,2.71){$J_y$}
+\usefont{T1}{ppl}{m}{n}
+\rput(3.2145312,-1.79){$J_{VR}$}
+\end{pspicture} 
+}
+\caption{O valor $\theta^*$ é o ponto de mínimo de ambas as funções custo, logo, minimizando a função custo
+$J_{VR}(\theta)$ é o equivalente a minimizar $J_y(\theta)$ sob condições ideais.}
+\label{fig:vrft_cost_functions}
 \end{figure}
 
 \end{frame}

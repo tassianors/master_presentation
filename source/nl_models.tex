@@ -163,7 +163,8 @@
 \frametitle{Classes de modelos - NARMAX}
 \framesubtitle{Sistemas não lineares}
 
-\begin{block} {Nonlinear Autoregressive Moving Average model with eXogenous variables}
+\begin{block} {Nonlinear AutoRegressive Moving Average model with eXogenous
+variables}
 \begin{equation}
 y(t)=\theta^T\Phi_{nl}(y, u, e)
 \label{eq:nlin_models_narmax_generic}
@@ -173,3 +174,200 @@ $u(t)$ e $e(t)$; $\theta$ é o vetor de parâmetros a ser identificado.
 \end{block}
 
 \end{frame}
+
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Classes de modelos - NARMAX}
+\framesubtitle{Modelo Polinômial}
+
+\begin{block} {Modelo polinômial}
+\begin{equation}
+y(t)=\sum_{m=0}^{l}\sum_{p=0}^{m}\sum_{n1, n_m}^{n_y, n_u}c_{p,m-p}(n_1,...,n_m)\prod_{i=1}^{p}y(t-n_i)\prod_{i=p+1}^{m}u(t-n_i)
+\end{equation}
+sendo que
+
+\begin{equation}
+\sum_{n1,n_m}^{n_y,n_u}\equiv \sum_{n_1=1}^{n_y}\cdots\sum_{n_m=1}^{n_y}
+\nonumber
+\end{equation}
+\end{block}
+
+Exemplo:
+
+\begin{equation}
+y(t)=\alpha_1 u^2(t-1)+\alpha_2y(t-1)y^2(t-2)+\alpha_3u(t-2)y(t-1)
+\nonumber
+\end{equation}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Classes de modelos - NARMAX}
+\framesubtitle{Modelo Racional}
+\fontsize{7}{7}\selectfont
+
+\begin{block} {Modelo Racional}
+
+\begin{align}\nonumber
+y(t) &=\frac{a(y(t-1), \ldots, y(t-n_y), u(t-1),\ldots, u(t-n_u), }{b(y(t-1), \ldots, y(t-n_y), u(t-1), \ldots, u(t-n_u),}\cdots \\ 
+ & \cdots\frac{ e(t-1), \ldots, e(t-n_e))}{e(t-1), \ldots, e(t-n_e))} +e(t)
+ \label{eq:nl_model_narmax_rat_simp}
+\end{align}
+\end{block}
+\begin{equation}
+a(t-1)=\sum_{j=1}^{N_n}p_{nj}\theta_{nj}=\psi _n^T(t-1)\theta_n
+\nonumber
+\end{equation}
+
+\begin{equation}
+b(t-1)=\sum_{j=1}^{N_d}p_{dj}\theta_{dj}=\psi _d^T(t-1)\theta_d
+\nonumber
+\end{equation}
+
+Exemplo:
+
+\begin{equation}
+y(t)=\frac{\alpha_1 u^2(t-1)+\alpha_2y(t-1)y^2(t-2)+\alpha_3u(t-2)y(t-1)}{1+\alpha_4u^3(t-1)y(t-2)+\alpha_5y^3(t-1)}
+\nonumber
+\end{equation}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------------------------
+\subsection{Algoritmo de identificação de sistemas racionais} 
+%-------------------------------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Algoritmo para identificação de modelos racionais}
+\framesubtitle{Pode ser utilizado para modelos polinômiais}
+
+\begin{block} {Modelo}
+\begin{eqnarray}\label{eq:nl_alg_rational}
+y(t)&=&\frac
+{a(y(t-1), ..., y(t-n_y), u(t-1), ..., u(t-n_u))}
+{b(y(t-1), ..., y(t-n_y), u(t-1), ..., u(t-n_u))}\\ \nonumber
+&&  +c(e(t-1), ... , e(t-n_e)) +e(t)
+\end{eqnarray}
+\end{block}
+\begin{itemize}
+	\item O ruído é modelado por um polinômio que pode ou não ser linear.
+	%\item Este algoritmo foi proposto por \cite{correa} e é uma modificação do algoritmo originalmente proposto por
+%\cite{billings_zhu91}.
+\end{itemize}
+
+\end{frame}
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Algoritmo para identificação de modelos racionais}
+\fontsize{8}{8}\selectfont
+
+\begin{block} {Passo 1}
+Faça $i=0$. Monte a matriz $\Psi$ de regressão e estime os parâmetros usando
+o método dos mínimos quadrados:
+
+\begin{equation}
+\begin{bmatrix}
+\hat{\theta}_n^i\\ 
+\hat{\theta}_{d1}^i
+\end{bmatrix}=\left [ \Psi ^T \Psi \right ]^{-1}\Psi^T y^*
+\label{nl_alg_rational_step_1}
+\end{equation}
+\end{block}
+
+\begin{equation}
+\Psi=\begin{bmatrix}
+\psi_n^T(t-1) & \psi_{d1}^T(t-1)\\ 
+\vdots & \vdots \\ 
+\psi_n^T(t+N-2) & \psi_{d1}^T(t+N-2)
+\end{bmatrix}
+\nonumber
+\end{equation}
+\end{frame}
+
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Algoritmo para identificação de modelos racionais}
+\fontsize{8}{8}\selectfont
+\begin{block} {Passo 2}
+Faça $i=i+1$. Determine os resíduos e sua variância, respectivamente como:
+
+\begin{equation}
+\xi ^i(t)=y(t)-\frac{\psi_n^T(t-1)\hat{\theta}_n}{\psi_{d}^T(t-1)\hat{\theta}_d}
+\label{nl_alg_rational_step2_res}
+\end{equation}
+
+\begin{equation}
+\left ( \sigma _{\xi}^2 \right )^i=\frac{1}{N-m_d}\sum_{i=m_d+1}^{N}\left ( \xi ^i(t) \right )^2
+\label{eq:nl_alg_rational_step2_var}
+\end{equation}
+\end{block}
+
+\begin{block} {Passo 3}
+Usando-se os resíduos determinados no passo anterior, atualize $\Psi ^T \Psi$ e $\Psi^T y^*$
+usando:
+
+\begin{equation}
+\Psi=\begin{bmatrix}
+\psi_{n}^T(t-1) & y(t)\psi_{d1}^T(t-1)  & \psi_{\xi }^T(t-1) \\ 
+\vdots & \vdots & \vdots\\ 
+\psi_{n}^T(t+N-2) & y(t)\psi_{d1}^T(t+N-2)  & \psi_{\xi }^T(t+N-2)
+\end{bmatrix}
+\label{eq:nl_alg_rational_step3_psi}
+\end{equation}
+\end{block}
+\end{frame}
+
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Algoritmo para identificação de modelos racionais}
+\framesubtitle{Passo 4 e 5}
+\fontsize{8}{8}\selectfont
+
+\textcolor{blue}{Passo 4}: Determine:
+\begin{columns}
+\fontsize{6}{6}\selectfont
+\column{0.8\textwidth}
+\begin{equation}
+\Phi =\begin{bmatrix}
+0      & \dots & 0      & 0 & \dots & 0 & \dots & 0 & \dots & 0\\ 
+\vdots &       & \vdots & \vdots &  & \vdots &  & \vdots &  & \vdots\\ 
+0      & \dots & 0      & \sum_{t=1}^{N}p_{d2}^2 & \dots & \sum_{t=1}^{N}p_{d2}p_{d_{N_d}}  & \dots & 0 & \dots & 0\\ 
+\vdots &       & \vdots & \vdots &  & \vdots &  & \vdots &  & \vdots\\ 
+0      & \dots & 0      & \sum_{t=1}^{N}p_{dN_d}p_{d2} & \dots & \sum_{t=1}^{N}p_{d_{N_d}}^2 & \dots & 0 & \dots & 0 
+\end{bmatrix}
+\nonumber
+\end{equation}
+
+\column{0.2\textwidth}
+\begin{equation}
+\phi =\begin{bmatrix}
+0\\ 
+\vdots\\ 
+0\\ 
+-\sum_{k=1}^{N} p_{d2}p_{d1}\\ 
+\vdots\\ 
+-\sum_{k=1}^{N} p_{dN_d}p_{d1}\\ 
+0\\ 
+\vdots\\
+0
+\end{bmatrix}
+\nonumber
+\end{equation}
+\end{columns}
+E estime novamente os parâmetros utilizando:
+
+\begin{equation}
+\begin{bmatrix}
+\hat{\theta}_n^i\\ 
+\hat{\theta}_{d1}^i
+\end{bmatrix}=\left [ \Psi^T \Psi - (\sigma _{\xi}^2)^i \Phi  \right ]^{-1}
+\left [ \Psi^T y^* - (\sigma _{\xi}^2)^i \phi \right ]
+\label{eq:nl_alg_rational_step5}
+\end{equation}
+
+\textcolor{blue}{Passo 5}: Volte ao  \textcolor{blue}{Passo 2} até atingir convergência (de parâmetro ou de
+variância de resíduo).
+\end{frame}
+

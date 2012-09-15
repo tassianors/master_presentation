@@ -1,214 +1,591 @@
 %-------------------------------------------------------------------------------------------------
-\section{Projeto de controladores utilizando referência virtual} 
+\section{Projeto de controladores não lineares utilizando referência virtual} 
 %-------------------------------------------------------------------------------------------------
-\begin{frame}\frametitle{Exemplo - Não linearidade estática: Modelo de Wiener}
+%-------------------------------------------------------------------------------------------------
 
-\begin{block}{Não linearidade estática}
-\begin{figure}[htbp]
+\begin{frame}
+\frametitle{Projeto de controladores não lineares baseados em dados}
+\framesubtitle{União do algoritmo de identificação de sistemas não lineares com referência virtual}
+
+\begin{block}{Definições}
+- Deseja-se que o sistema não linear, se comporte linearmente em malha fechada: $T_d(z)$
+
+- $\mathcal{C}_d$ é quem proporciona isso.
+\end{block}
+
+\begin{figure}
 \center
-\scalebox{0.7} % Change this value to rescale the drawing.
+% Generated with LaTeXDraw 2.0.8
+% Wed Aug 01 22:46:20 BRT 2012
+% \usepackage[usenames,dvipsnames]{pstricks}
+% \usepackage{epsfig}
+% \usepackage{pst-grad} % For gradients
+% \usepackage{pst-plot} % For axes
+\scalebox{0.75} % Change this value to rescale the drawing.
 {
-\begin{pspicture}(0,-0.92)(11.62,0.9)
-\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(0.0,0.3)(0.8,0.3)
-\pscircle[linewidth=0.04,dimen=outer](1.0,0.3){0.2}
-\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(1.2,0.3)(2.0,0.3)
-\psframe[linewidth=0.04,dimen=outer](3.2,0.7)(2.0,-0.1)
-\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(3.2,0.3)(4.2,0.3)
-\psframe[linewidth=0.04,dimen=outer](5.4,0.7)(4.2,-0.1)
-\psframe[linewidth=0.04,dimen=outer](8.0,0.7)(6.8,-0.1)
-\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(8.0,0.3)(9.0,0.3)
-\psframe[linewidth=0.04,dimen=outer](10.2,0.7)(9.0,-0.1)
-\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(5.4,0.3)(6.8,0.3)
-\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(10.2,0.3)(11.6,0.3)
-\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{<-}(1.0,0.1)(1.0,-0.9)
-\psline[linewidth=0.04cm](1.0,-0.9)(10.8,-0.9)
-\psline[linewidth=0.04cm](10.8,-0.9)(10.8,0.3)
+\begin{pspicture}(0,-1.4292188)(9.601875,1.4692189)
+\pscircle[linewidth=0.04,linestyle=dashed,dash=0.16cm 0.16cm,dimen=outer](1.981875,0.97078127){0.2}
+\psframe[linewidth=0.04,linestyle=dashed,dash=0.16cm 0.16cm,dimen=outer](5.381875,1.3707813)(3.581875,0.57078123)
+\psframe[linewidth=0.04,dimen=outer](8.181875,1.3707813)(6.581875,0.57078123)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(0.581875,0.97078127)(1.781875,0.97078127)
+\psline[linewidth=0.04cm,linestyle=dashed,dash=0.16cm 0.16cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(2.181875,0.97078127)(3.581875,0.97078127)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(5.381875,0.97078127)(6.581875,0.97078127)
+\psline[linewidth=0.04cm](8.181875,0.97078127)(9.581875,0.97078127)
+\psline[linewidth=0.04cm,linestyle=dashed,dash=0.16cm 0.16cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{<-}(1.981875,0.7707813)(1.981875,-0.02921875)
+\psline[linewidth=0.04cm,linestyle=dashed,dash=0.16cm 0.16cm](1.981875,-0.02921875)(8.981875,-0.02921875)
+\psline[linewidth=0.04cm,linestyle=dashed,dash=0.16cm 0.16cm](8.981875,-0.02921875)(8.981875,0.97078127)
 \usefont{T1}{ptm}{m}{n}
-\rput(0.45828125,0.61){r(t)}
+\rput(1.6198437,1.2807813){+}
 \usefont{T1}{ptm}{m}{n}
-\rput(1.4946876,0.61){e(t)}
+\rput(2.1839063,0.68078125){-}
 \usefont{T1}{ptm}{m}{n}
-\rput(3.699375,0.61){v(t)}
+\rput(0.991875,1.2707813){\small $\bar{r}(t)$}
 \usefont{T1}{ptm}{m}{n}
-\rput(6.089375,0.61){u(t)}
+\rput(4.451875,0.97078127){\small $\mathcal{C}$}
 \usefont{T1}{ptm}{m}{n}
-\rput(8.464531,0.61){$\omega(t)$}
+\rput(7.341875,0.9907812){\small $\mathcal{S}$}
 \usefont{T1}{ptm}{m}{n}
-\rput(10.899375,0.61){y(t)}
-\psline[linewidth=0.04cm](1.2,0.1)(1.4,0.1)
-\psframe[linewidth=0.04,linestyle=dashed,dash=0.16cm 0.16cm,dimen=outer](5.6,0.9)(1.8,-0.3)
-\psframe[linewidth=0.04,linestyle=dashed,dash=0.16cm 0.16cm,dimen=outer](10.4,0.9)(6.6,-0.3)
+\rput(6.031875,1.2707813){\small $u(t)$}
 \usefont{T1}{ptm}{m}{n}
-\rput(3.5345314,-0.59){C(z)}
+\rput(2.771875,1.2707813){\small $\epsilon (t)$}
 \usefont{T1}{ptm}{m}{n}
-\rput(8.544531,-0.59){G(z)}
+\rput(8.821875,1.2707813){\small $y(t)$}
+\psframe[linewidth=0.04,dimen=outer](6.581875,-0.62921876)(4.381875,-1.4292188)
 \usefont{T1}{ptm}{m}{n}
-\rput(2.6745312,0.41){$\Phi^{-1}$}
-\usefont{T1}{ptm}{m}{n}
-\rput(9.524531,0.41){$\Phi$}
-\usefont{T1}{ptm}{m}{n}
-\rput(4.7745314,0.41){C'(z)}
-\usefont{T1}{ptm}{m}{n}
-\rput(7.384531,0.41){G'(z)}
+\rput(5.431875,-1.0492188){\small $T_d^{-1}(z)$}
+\psline[linewidth=0.04cm](9.581875,0.97078127)(9.581875,-1.0292188)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(9.581875,-1.0292188)(6.581875,-1.0292188)
+\psline[linewidth=0.04cm](4.381875,-1.0292188)(0.581875,-1.0292188)
+\psline[linewidth=0.04cm](0.581875,-1.0292188)(0.581875,0.97078127)
 \end{pspicture} 
 }
-\caption{Diagrama de blocos para um sistema não linear do tipo Wiener}
+\label{fig:dbnarmax_method_vr}
+\end{figure}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Projeto de controladores não lineares baseados em dados}
+\framesubtitle{União do algoritmo de identificação de sistemas não lineares com referência virtual}
+
+\begin{block}{Objetivo para encontrar o controlador}
+\begin{eqnarray}
+	&&\min_{\theta} J^{VR}(\theta) \nonumber\\
+	&&J^{VR}(\theta) \triangleq \frac{1}{N}\sum_{t=1}^N \left[\left( u(t) - C(\bar{\psi}_C(t),\theta) \right)^2\right].
+	\nonumber
+\end{eqnarray}
+\end{block}
+
+Classes de modelos exploradas:
+\begin{itemize}
+  \item Não linearidades estáticas: Sistema do tipo Wiener
+  \item Não linearidades dinâmicas: Sistema racional (NARMAX)
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+\subsection{Sistema do tipo Wiener} 
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Projeto de controladores não lineares baseados em dados}
+\framesubtitle{Sistema do tipo Wiener - Não linearidade estática na saída}
+
+\begin{columns}
+\column{0.5\textwidth}
+Wiener
+% WIENER System
+\begin{eqnarray}
+z(t) & = & G_0(z) u(t) + H_0 (z) e(t) \nonumber \\
+y(t) & = & \phi( z(t)) \nonumber
+\end{eqnarray}
+
+\begin{figure}
+\center
+% Generated with LaTeXDraw 2.0.8
+% Tue Sep 04 00:22:08 BRT 2012
+% \usepackage[usenames,dvipsnames]{pstricks}
+% \usepackage{epsfig}
+% \usepackage{pst-grad} % For gradients
+% \usepackage{pst-plot} % For axes
+\scalebox{0.7} % Change this value to rescale the drawing.
+{
+\begin{pspicture}(0,-1.0367187)(6.8690624,1.0767188)
+\pscircle[linewidth=0.04,dimen=outer](3.17,-0.63671875){0.2}
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(0.37,-0.63671875)(1.17,-0.63671875)
+\psframe[linewidth=0.04,dimen=outer](2.37,-0.23671874)(1.17,-1.0367187)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(3.37,-0.63671875)(4.37,-0.63671875)
+\psframe[linewidth=0.04,dimen=outer](5.57,-0.23671874)(4.37,-1.0367187)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(2.37,-0.63671875)(2.97,-0.63671875)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(5.57,-0.63671875)(6.37,-0.63671875)
+\usefont{T1}{ppl}{m}{n}
+\rput(3.7245312,-0.32671875){$z(t)$}
+\usefont{T1}{ppl}{m}{n}
+\rput(0.48453125,-0.32671875){$u(t)$}
+\usefont{T1}{ppl}{m}{n}
+\rput(6.284531,-0.32671875){$y(t)$}
+\usefont{T1}{ppl}{m}{n}
+\rput(4.934531,-0.62671876){$\phi(\cdot)$}
+\usefont{T1}{ppl}{m}{n}
+\rput(1.7345313,-0.62671876){$G_0(z)$}
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(0.37,0.56328124)(1.17,0.56328124)
+\psframe[linewidth=0.04,dimen=outer](2.37,0.9632813)(1.17,0.16328125)
+\psline[linewidth=0.04cm](2.37,0.56328124)(3.17,0.56328124)
+\usefont{T1}{ppl}{m}{n}
+\rput(0.48453125,0.87328124){$e(t)$}
+\usefont{T1}{ppl}{m}{n}
+\rput(1.7345313,0.59328127){$H_0(z)$}
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(3.17,0.56328124)(3.17,-0.43671876)
+\end{pspicture} 
+}
+\label{fig:Wiener}
+\end{figure}
+
+\column{0.5\textwidth}
+Controlador: Hammerstein
+% HAMMERSTEIN Controller
+\begin{eqnarray}
+u(t) & = & C_d'(z) v(t)  \nonumber\\
+v(t) & = & r(t) - \psi( y(t) )\nonumber
+\end{eqnarray}
+
+\begin{figure}[htbp]
+\center
+% Generated with LaTeXDraw 2.0.8
+% Sun Sep 02 10:59:53 BRT 2012
+% \usepackage[usenames,dvipsnames]{pstricks}
+% \usepackage{epsfig}
+% \usepackage{pst-grad} % For gradients
+% \usepackage{pst-plot} % For axes
+\scalebox{0.7} % Change this value to rescale the drawing.
+{
+\begin{pspicture}(0,-1.0367187)(4.6990623,1.0767188)
+\pscircle[linewidth=0.04,dimen=outer](1.2,0.56328124){0.2}
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(0.0,0.56328124)(1.0,0.56328124)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(1.4,0.56328124)(2.2,0.56328124)
+\psframe[linewidth=0.04,dimen=outer](3.4,0.9632813)(2.2,0.16328125)
+\psline[linewidth=0.04cm](1.2,-0.63671875)(2.2,-0.63671875)
+\psframe[linewidth=0.04,dimen=outer](3.4,-0.23671874)(2.2,-1.0367187)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(1.2,-0.63671875)(1.2,0.36328125)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(3.4,0.56328124)(4.2,0.56328124)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{<-}(3.4,-0.63671875)(4.2,-0.63671875)
+\usefont{T1}{ptm}{m}{n}
+\rput(0.48453125,0.87328124){$r(t)$}
+\usefont{T1}{ptm}{m}{n}
+\rput(4.114531,0.87328124){$u(t)$}
+\usefont{T1}{ptm}{m}{n}
+\rput(4.114531,-0.32671875){$y(t)$}
+\usefont{T1}{ptm}{m}{n}
+\rput(1.7145313,0.87328124){$v(t)$}
+\usefont{T1}{ptm}{m}{n}
+\rput(2.7645311,-0.62671876){$\psi(\cdot)$}
+\usefont{T1}{ptm}{m}{n}
+\rput(2.7745314,0.5732812){$C_d'(z)$}
+\psline[linewidth=0.04cm](1.38,0.34328124)(1.54,0.34328124)
+\end{pspicture} 
+}
+\label{fig:dbnarmax_method_vr}
+\end{figure}
+\end{columns}
+
+%It is clearly seen that even in this standard case the ideal controller is not
+%a function of the tracking error $r(t)-y(t)$, but instead a function of $r(t)$ and of $y(t)$ separately.
+\begin{block}{Observação}
+Fica claro que mesmo no caso padrão o controlador ideal não é uma função do erro $r(t)-y(t)$, mas sim de $r(t)$ e
+$y(t)$ separadamente.
+\end{block}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Projeto de controladores não lineares baseados em dados}
+\framesubtitle{Sistema do tipo Wiener - Não linearidade estática na saída}
+\fontsize{8}{8}\selectfont
+Assumindo que a referência $r(t)$ seja constante, uma topologia alternativa é tornar o controlador dependente do erro de
+referência.
+\begin{block}{Controlador dependente do erro de referência}
+\begin{eqnarray}
+u(t) & = & C'(z,\theta) v(t) \nonumber\\
+v(t) & = & \psi( r(t) - y(t),\eta )\nonumber
+\end{eqnarray}
+
+onde
+\begin{equation}
+\psi ( r(t) - y(t) ) = \alpha [r(t)-z(t)]
+\nonumber
+\end{equation}
+\end{block}
+
+
+\begin{figure}[htbp]
+\center
+% Generated with LaTeXDraw 2.0.8
+% Sat Aug 25 13:00:53 BRT 2012
+% \usepackage[usenames,dvipsnames]{pstricks}
+% \usepackage{epsfig}
+% \usepackage{pst-grad} % For gradients
+% \usepackage{pst-plot} % For axes
+\scalebox{0.62} % Change this value to rescale the drawing.
+{
+\begin{pspicture}(0,-2.12)(12.480156,2.1)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(0.0471875,0.3)(1.0471874,0.3)
+\pscircle[linewidth=0.04,dimen=outer](1.2471875,0.3){0.2}
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(1.4471874,0.3)(2.36,0.3)
+\psframe[linewidth=0.04,dimen=outer](3.56,0.7)(2.36,-0.1)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(3.56,0.3)(4.36,0.3)
+\psframe[linewidth=0.04,dimen=outer](5.56,0.7)(4.36,-0.1)
+\psframe[linewidth=0.04,dimen=outer](8.36,0.7)(7.16,-0.1)
+\psframe[linewidth=0.04,dimen=outer](10.96,0.7)(9.76,-0.1)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(5.447188,0.3)(7.16,0.3)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{<-}(1.2471875,0.1)(1.2471875,-2.1)
+\psline[linewidth=0.04cm](1.2471875,-2.1)(11.56,-2.1)
+\usefont{T1}{ppl}{m}{n}
+\rput(0.45453125,0.61){$r(t)$}
+\usefont{T1}{ppl}{m}{n}
+\rput(1.5807812,0.61){$\epsilon (t)$}
+\usefont{T1}{ppl}{m}{n}
+\rput(3.930781,0.57){$v(t)$}
+\usefont{T1}{ppl}{m}{n}
+\rput(6.365625,0.61){$u(t)$}
+\usefont{T1}{ppl}{m}{n}
+\rput(9.460782,0.61){$z(t)$}
+\usefont{T1}{ppl}{m}{n}
+\rput(11.895625,0.61){$y(t)$}
+\psline[linewidth=0.04cm](1.4671875,0.08)(1.6671875,0.08)
+\psframe[linewidth=0.04,linestyle=dashed,dash=0.16cm 0.16cm,dimen=outer](5.96,1.3)(1.96,-0.7)
+\psframe[linewidth=0.04,linestyle=dashed,dash=0.16cm 0.16cm,dimen=outer](11.36,2.1)(6.76,-0.7)
+\usefont{T1}{ppl}{m}{n}
+\rput(3.950781,-0.99){$\mathcal{C}$}
+\usefont{T1}{ppl}{m}{n}
+\rput(8.870782,-0.99){$\mathcal{S}$}
+\usefont{T1}{ppl}{m}{n}
+\rput(2.9207811,0.31){$\psi(\cdot)$}
+\usefont{T1}{ppl}{m}{n}
+\rput(10.320781,0.31){$\phi(\cdot)$}
+\usefont{T1}{ppl}{m}{n}
+\rput(4.910781,0.31){$C'(z)$}
+\usefont{T1}{ppl}{m}{n}
+\rput(7.720781,0.31){$G_0(z)$}
+\psframe[linewidth=0.04,dimen=outer](8.36,1.7)(7.16,0.9)
+\usefont{T1}{ppl}{m}{n}
+\rput(7.720781,1.29){$H_0(z)$}
+\psline[linewidth=0.04cm](8.36,1.3)(8.96,1.3)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(8.96,1.3)(8.96,0.5)
+\pscircle[linewidth=0.04,dimen=outer](8.96,0.3){0.2}
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(8.36,0.3)(8.76,0.3)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(9.16,0.3)(9.76,0.3)
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(6.36,1.3)(7.16,1.3)
+\usefont{T1}{ppl}{m}{n}
+\rput(6.285625,1.61){$e(t)$}
+\psline[linewidth=0.04cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(10.96,0.3)(12.16,0.3)
+\psline[linewidth=0.04cm](11.56,-2.1)(11.56,0.3)
+\end{pspicture} 
+}
+\caption{Diagrama de blocos de um sistema não linear do tipo Wiener.}
 \label{fig:vrft_nl_wiener}
 \end{figure}
-\end{block}
-Sistema escolhido:
 
+\end{frame}
+
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Sistema do tipo Wiener}
+\framesubtitle{Exemplo numérico}
+
+\begin{columns}
+\column{0.5\textwidth}
+\begin{block}{Sistema Real}
 \begin{equation}
-G'(z)=\frac{0.5}{z-0.9}
-\label{eq:vrft_nl_wiener_g}
-\end{equation} 
+G_0(z)=\frac{0.5}{z-0.9}
+\nonumber
+\end{equation}
+\begin{equation}
+\phi(z(t))=y(t)=1.5z(t)+0.2z^3(t)
+\nonumber
+\end{equation}  
+\end{block}
 
+\column{0.5\textwidth}
+\begin{block}{Comportamento desejado}
 \begin{equation}
 M(z)=\frac{0.4}{z-0.6}
-\label{eq:vrft_nl_wiener_m}
+\nonumber
+\end{equation} 
+\end{block}
+\end{columns}
+\vspace{\baselineskip}
+Classe de controlador (PI):
+\begin{equation}
+C(z,\theta) = \theta_1 \frac{1}{z-1} + \theta_2 \frac{z}{z-1}
+\nonumber
+\end{equation}
+
+e
+\begin{equation}
+\psi (\epsilon(t))= a_1\epsilon (t) + a_2 \epsilon ^2(t) +a_3 \epsilon ^3(t) +a_4 \epsilon ^4(t)
+\nonumber
 \end{equation}  
 \end{frame}
 
-\begin{frame}\frametitle{Exemplo - Não linearidade estática: Modelo de Wiener}
-A não linearidade presente na planta do sistema foi escolhida como sendo um polinômio de terceira ordem:
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Sistema do tipo Wiener}
+\framesubtitle{Exemplo numérico}
+\fontsize{8}{8}\selectfont
 
+\begin{columns}
+\column{0.6\textwidth}
+Parte linear do controlador
 \begin{equation}
-\Phi(\omega)=y(t)=1.5\omega(t)+0.2\omega^3(t)
-\label{eq:vrft_nl_wiener_phi}
-\end{equation}  
-
-Espera-se então que por $M(z)$ ser linear, que o controlador tenha um bloco que seja o inverso de $\Phi$, para
-que a não linearidade possa ser cancelada completamente.
-
-\begin{equation}
-\Phi^{-1}(e(t))= v(t) = a_1e(t) + a_2 e^2(t) +a_3 e^3(t) +a_4 e^4(t)
-\label{eq:vrft_nl_wiener_phi_inv}
-\end{equation}  
-
-Desconsiderando a parte não linear presente na planta, é simples de observar que o controlador ótimo que
-levaria a planta em malha fechada a ter o comportamento descrito por $M(z)$ é:
-
-\begin{equation}
-C_d(z)= \frac{0.8z-0.72}{z-1}
+C_d'(z)= \frac{0.8z-0.72}{z-1}
 \label{eq:vrft_nl_wiener_cd}
 \end{equation}
 
-\end{frame}
+\begin{block}{Classe do controlador}
+\begin{align}\nonumber
+u_f(t) =&  \theta_1 \epsilon (t)+ \theta_2 \epsilon ^2(t)+ \theta_3 \epsilon^3(t)+ \theta_4 \epsilon^4(t)+\\ \nonumber
+& \theta_6 \epsilon^2(t-1)+  \theta_7 \epsilon^3(t-1)+ \\ & \theta_8 \epsilon^4(t-1)
+\label{eq:dbnarmax_ex_wiener_controller}
+\end{align}
+\end{block}
 
-\begin{frame}\frametitle{Exemplo - Não linearidade estática: Modelo de Wiener}
-Foram feitos 100 experimentos de Monte Carlo e a média das estimativas obtidas foi de:
+
+
+\column{0.4\textwidth}
+100 Monte Carlo experimentos foram realizados e a média das estimativas obtidas foi:
 
 \begin{equation}
-\text{média }\;\theta =\begin{bmatrix}
-0.4471 \\ 0.0020 \\ -6.5105\times10^{-4} \\ -1.5959\times10^{-5} \\ -0.4043 \\ -0.0016 \\ 6.1194\times10^{-4}
-\\ 1.4562\times10^{-5}
-\end{bmatrix}^T
+\theta_{\text{média}} =\begin{bmatrix}
+0.44717 \\ 2.0216\times10^{-3} \\ -6.5181\times10^{-4} \\ -1.608\times10^{-5} \\ -0.40435 \\ -1.6163\times10^{-3} \\
+6.1265\times10^{-4}\\ 1.469\times10^{-5} 
+\end{bmatrix}
 \nonumber
 \end{equation}
 
-O custo do sistema em malha fechada: somatório do quadrado da diferença entre o sinal esperado e o obtido 
-foi de $J_{MR}(\theta)= 0.3820$
+\end{columns}
+\vspace{\baselineskip}
+
+O custo obtido foi: $J^{MR}(\theta_{\text{média}})=3.0078\times10^{-3}$;
 \end{frame}
 
-\begin{frame}\frametitle{Exemplo - Não linearidade estática: Modelo de Wiener}
-Sistema em malha fechada submetido a um sinal do tipo degrau unitário. 
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+% TODO: preciso trocar o \omega por z(t).
+\begin{frame}
+\frametitle{Sistema do tipo Wiener}
+\framesubtitle{Exemplo numérico}
+\fontsize{8}{8}\selectfont
 
-%\begin{figure}[htbp] 
-%	\center 
-%	\includegraphics[width=0.85\columnwidth]{source/figures/vrft_nl_wiener_step.eps}
-%	\caption{resposta dos sistemas: desejado e obtido a um degrau unitário}
-%	\label{fig:vrft_nl_wiener_step}
-%\end{figure}
+\begin{figure}[htbp] 
+	\center 
+	\includegraphics[width=0.95\columnwidth]{figures/vrft_nl_wiener_step.eps}
+	\caption{Comparativo da resposta a um degrau unitário do modelo de referência $T_d(z)$ com o sistema real quando o
+	controlador controlador não linear representado por um modelo NARMAX polinomial é inserido na planta.}
+	\label{fig:vrft_nl_wiener_step}
+\end{figure}
 \end{frame}
 
-\begin{frame}\frametitle{Exemplo - Não linearidade estática: Modelo de Wiener}
-Observa-se que a relação destes sinais é praticamente linear, garantido que a aproximação de $\Phi^{-1}$ foi
-satisfatória para representar a inversa do sinal $\Phi$.
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Sistema do tipo Wiener}
+\framesubtitle{Exemplo numérico}
+\fontsize{8}{8}\selectfont
+
+\begin{figure}[htbp] 
+	\center 
+	\includegraphics[width=0.95\columnwidth]{figures/vrft_nl_wiener_vw_step.eps}
+	\caption{Sinais $v(t)$ e $\omega(t)$ do sistema apresentado na Figura \ref{fig:vrft_nl_wiener} quando este é
+	excitado por um degrau unitário.}
+	\label{fig:vrft_nl_wiener_vw_step}
+\end{figure}
 
 \end{frame}
-
 
 %-------------------------------------------------------------------------------------------------
 %-------------------------------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Exemplo: Não linearidades dinâmicas}
-Sistema escolhido:
+\frametitle{Sistema do tipo Wiener}
+\framesubtitle{Exemplo numérico}
+\fontsize{8}{8}\selectfont
 
-\begin{equation}
-y(t)=\frac{0.1u(t-1)y(t-1)+u(t-1)}{1+0.25y^2(t-2)}
-\label{eq:vrft_nl_dinamic_ex1_y}
-\end{equation}
+\begin{figure}[htbp] 
+	\center 
+	\includegraphics[width=0.95\columnwidth]{figures/vrft_nl_wiener_vw.eps}
+	\caption{relação entre os sinais $v(t)$ e $\omega(t)$ quando o sistema é alimentado por um degrau unitário}
+	\label{fig:vrft_nl_wiener_vw}
+\end{figure}
 
-Deseja-se que em malha fechada seu comportamento seja como em:
-
-\begin{equation}
-M(z)=\frac{0.4}{z-0.6}
-\label{eq:vrft_nl_dinamic_ex1_mz}
-\end{equation}
-
-O controlador ideal é descrito como:
-
-\begin{equation}
-u(t)=\frac{0.4r(t)+0.6y(t)+0.1y^2(t-2)r(t-1)+0.15y(t)y^2(t-1)}{1+0.5y(t)}
-\label{eq:vrft_nl_dinamic_ex1_cd}
-\end{equation}
 \end{frame}
 
-
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+\subsection{Sistemas Racionais} 
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Exemplo: Não linearidades dinâmicas}
+\frametitle{Projeto de controladores não lineares baseados em dados}
+\framesubtitle{Sistema Racionais - Não linearidade na dinâmica do sistema}
 
-\begin{block}{Classe de modelos escolhida}
+Sistemas racionais
+\end{frame}
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Projeto de controladores não lineares baseados em dados}
+\framesubtitle{Sistema Racionais - Não linearidade na dinâmica do sistema}
+\fontsize{7}{7}\selectfont
+
+\begin{block}{}
+  Quando a planta é um sistema racional e o comportamento em malha fechada é linear, o controlador ótimo pode ser
+  também reprentado por um modelo racional.
+\end{block}
+\vspace{\baselineskip}
+
+Exemplificando:
+
+\begin{columns}
+\column{0.5\textwidth}
+\begin{block}{Sistema real}
 \begin{equation}
-	u(t)=\frac{\theta_1 r(t)+ \theta_2 y(t)+ \theta_3 y^2(t-2)r(t-1)+ \theta_4 y(t)y^2(t-1)}{1+ \theta_5 y(t)}
-\label{eq:vrft_nl_dinamic_ex1_c}
+y(t)=\frac{0.5u(t-1)y(t-1)+u(t-1)}{1+0.25y^2(t-2)}
+\nonumber
 \end{equation}
 \end{block}
 
-Resultados obtidos:
-
+\column{0.5\textwidth}
+Comportamento em malha fechada esperado:
 \begin{equation}
-\text{média de }\theta=\begin{bmatrix}
+T_d(z)=\frac{0.4}{z-0.6}
+\nonumber
+\end{equation}
+
+\begin{block}{}
+\begin{equation}
+y(t)=0.4r(t-1)+0.6y(t-1)
+\nonumber
+\end{equation}
+\end{block}
+
+\end{columns}
+\vspace{\baselineskip}
+
+\begin{block}{Controlador ótimo}
+\begin{equation}
+u(t)=\frac{0.4r(t)+0.6y(t)+0.1y^2(t-1)r(t)+0.15y(t)y^2(t-1)}{1+0.5y(t)}
+\nonumber
+\end{equation}
+\end{block}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Sistema Racionais - Não linearidade na dinâmica do sistema}
+\framesubtitle{Exemplo numérico: $\mathcal{C}_d \in \mathcal{C}$}
+\fontsize{7}{7}\selectfont
+
+\begin{block}{Classe de modelos do controlador: $\mathcal{C}_d \in \mathcal{C}$}
+\begin{equation}
+u(t)=\frac{\theta_1 r(t)+ \theta_2 y(t)+ \theta_3 y^2(t-1)r(t)+ \theta_4 y(t)y^2(t-1)}{1+ \theta_5 y(t)}
+\nonumber
+\end{equation}
+\end{block}
+%\vspace{\baselineskip}
+
+Utilizando um sinal PRBS de 254 pontos (ordem 7) e fazendo 100 experimentos de Monte Carlo com um ruído de variância de
+$\sigma_e^2 = 0.005$
+\begin{columns}
+\column{0.55\textwidth}
+\textcolor{blue}{
+\begin{equation}
+\theta_{\text{média}}=\begin{bmatrix}
 0.4000 & 0.5999 & 0.1001 & 0.1501 & 0.5000
 \end{bmatrix}
 \nonumber
-\end{equation}
+\end{equation}}
+\column{0.45\textwidth}
+Custo obtido foi \textcolor{red}{$J_{y}(\theta_{\text{médio}})=0.0033$ } e 
+\textcolor{red}{$J_{VR}(\theta_{\text{médio}})=2.7291\times10{-8}$}
+\end{columns}
 
-\begin{equation}
-\text{Desvio padrão de }\theta=1.0\times 10^{-3}\begin{bmatrix}
-0.2231 & 0.6866 & 0.2411 & 0.6817 & 0.3019
-\end{bmatrix}
-\nonumber
-\end{equation}
+\begin{columns}
+\column{0.6\textwidth}
+\begin{figure} 
+	\center 
+	\includegraphics[width=0.99\columnwidth]{figures/vrft_nl_dynamic_t1_t2.eps}
+	\label{fig:vrft_nl_dynamic_t1_t2}
+\end{figure}
+
+\column{0.5\textwidth}
+Erro entre a resposta esperada e a obtida:
+\begin{figure} 
+	\center 
+	\includegraphics[width=0.99\columnwidth]{figures/vrft_nl_dynamic_erro_step.eps}
+	%\caption{Erro entre a resposta esperada e a obtida}
+	\label{fig:vrft_nl_dynamic_step_erro}
+\end{figure}
+
+\end{columns}
 \end{frame}
 
 %-------------------------------------------------------------------------------------------------
-%-------------------------------------------------------------------------------------------------
-\section{Não linearidades estáticas} 
 %-------------------------------------------------------------------------------------------------
 \begin{frame}
-      \frametitle{Cronograma das próximas atividades}
-            \linespread{1.3}
+\frametitle{Sistema Racionais - Não linearidade na dinâmica do sistema}
+\framesubtitle{Exemplo numérico: $\mathcal{C}_d \notin \mathcal{C}$}
+%\fontsize{7}{7}\selectfont
 
-\begin{table}[htbp]
-\begin{center}
-\caption{Próximas atividades previstas para o ano de 2012 até a conclusão do trabalho:}
-\label{table:si_modeling_models}
-\begin{tabular}{ll}
-        Previsão & Atividade  \\
-\hline
-\hline
-        03 de Junho & Prova de proficiência em  língua estrangeira  \\ 
-\hline
-        Junho      & Finalização do artigo para congresso \\ 
-\hline
-		Junho a Agosto & Finalização da escrita da dissertação \\ 
-\hline
-		Setembro   & Defesa \\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
+Considerando o mesmo sistema real apresentado anteriormente:
+\begin{block}{Classe de modelos do controlador: $\mathcal{C}_d \notin \mathcal{C}$}
+\begin{equation}
+%u(t)=\frac{\theta_1 r(t)+ \theta_2 y(t)+ \theta_3 y^2(t-1)r(t)+ \theta_4 y(t)y^2(t-1)}{1+ \theta_5 y(t)}
+u(t)=\frac{\theta_1 r(t)+ \theta_2 y(t)+ \theta_3 r(t)y(t-1)+ \theta_4 y(t-1)y(t)}{1+ \theta_5 y(t)}
+\nonumber
+\end{equation}
+\end{block}
+\vspace{\baselineskip}
+
+Utilizando um sinal PRBS de 254 pontos (ordem 7) e fazendo 100 experimentos de Monte Carlo com um ruído de variância de
+$\sigma_e^2 = 0.005$
+
+\textcolor{blue}{
+\begin{equation}
+\theta_{\text{média}}=\begin{bmatrix}
+0.4696 & 0.7011 & 0.0083 & 0.0063 & 0.5013
+\end{bmatrix}
+\nonumber
+\end{equation}}
+
+Custo obtido foi 
+\textcolor{red}{$J_{y}(\theta_{\text{médio}})=1.0999$}
 
 \end{frame}
+
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Sistema Racionais - Não linearidade na dinâmica do sistema}
+\framesubtitle{Exemplo numérico: $\mathcal{C}_d \notin \mathcal{C}$}
+
+\begin{figure}[htbp] 
+	\center 
+	\includegraphics[width=0.95\columnwidth]{figures/vr_rational_notinclass_ex3_step.eps}
+	\caption{Exemplo onde $\mathcal{C}_d \notin \mathcal{C}$: Resposta do sistema ao degrau unitário para o
+	sistema desejado $T_d(z)$ e o sistema quando o controlador parametrizado por $\theta_{\text{médio}}$}
+	\label{fig:vr_rational_notinclass_ex3_step}
+\end{figure}
+\end{frame}
+
+%-------------------------------------------------------------------------------------------------
 %-------------------------------------------------------------------------------------------------
