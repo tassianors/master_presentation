@@ -68,7 +68,7 @@
 
 \begin{equation}
 T(z, \theta)=\frac{C(z,\theta)G_0(z)}{1+C(z,\theta)G_0(z)}
-\label{eq:vrft_db_closed_loop}
+\nonumber
 \end{equation}
 
 \end{frame}
@@ -162,6 +162,15 @@ C_d(z)=\frac{T_d(z)}{G_0(z)(1-T_d(z))}
   \item O método VRFT faz com que a função custo a ser minimizada seja quadrática em $\theta$, não recaindo em mínimos
   locais.
 \end{itemize}
+\begin{equation}
+J_{VR}^N(\theta)=\frac{1}{N}\sum_{t=1}^{N}(u_L(t)-\varphi_L^T(t)\theta)^2
+\nonumber
+\end{equation}
+
+\begin{equation}
+\varphi_L(t)=\beta(z)\epsilon_L(t)
+\nonumber
+\end{equation}
 
 \end{frame}
 %-------------------------------------------------------------------------------------------------

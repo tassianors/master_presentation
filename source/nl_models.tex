@@ -135,25 +135,26 @@
 \framesubtitle{Sistemas não lineares}
 
 \begin{itemize}
-  \item Voltera: Relaciona valores passados da entrada com o valor atual da saída.
+  \item \textcolor{blue}{Voltera}: Relaciona valores passados da entrada com o valor atual da saída.
   	\begin{equation}
 		y(t)=\sum_{j=1}^{\infty}\int_{-\infty}^{\infty}\cdots \int_{-\infty}^{\infty}
 		h_j(\tau_1, ... ,\tau_j) \prod_{i=1}^{j}u(t-\tau_i)d\tau_i
 	\nonumber
 	\end{equation}
-  \item Redes Neurais: 
+  \item \textcolor{blue}{Redes Neurais}: 
   \begin{equation}
 	x=f\left ( \sum_{j=1}^{n}\omega_j x_j +b \right )
-	\label{eq:nl_models_neural}
+	\nonumber
   \end{equation}
   \begin{itemize}
     \item Redes neurais multi camadas
     \item Redes neurais recorrente
   \end{itemize}
-  \item Funções radiais de base: Casos particulares de redes neurais, mas lineares nos parametros $\omega_i$.
+  \item \textcolor{blue}{Funções radiais de base}: Casos particulares de redes neurais, mas lineares nos parametros
+  $\omega_i$.
   \begin{equation}
 	f(y)=\omega_0+\sum_{i}\omega_i \phi (\left \| y-c_i \right \|)
-	\label{eq:nl_models_rbf}
+	\nonumber
   \end{equation}	
 \end{itemize}
 
@@ -167,7 +168,7 @@
 variables}
 \begin{equation}
 y(t)=\theta^T\Phi_{nl}(y, u, e)
-\label{eq:nlin_models_narmax_generic}
+\nonumber
 \end{equation}
 onde $\Phi_{nl}(\cdot)$ denota um campo vetorial que depende dos valores passados de $y(t)$ e presente e passados de
 $u(t)$ e $e(t)$; $\theta$ é o vetor de parâmetros a ser identificado.
@@ -183,6 +184,7 @@ $u(t)$ e $e(t)$; $\theta$ é o vetor de parâmetros a ser identificado.
 \begin{block} {Modelo polinômial}
 \begin{equation}
 y(t)=\sum_{m=0}^{l}\sum_{p=0}^{m}\sum_{n1, n_m}^{n_y, n_u}c_{p,m-p}(n_1,...,n_m)\prod_{i=1}^{p}y(t-n_i)\prod_{i=p+1}^{m}u(t-n_i)
+\nonumber
 \end{equation}
 sendo que
 
@@ -212,7 +214,7 @@ y(t)=\alpha_1 u^2(t-1)+\alpha_2y(t-1)y^2(t-2)+\alpha_3u(t-2)y(t-1)
 \begin{align}\nonumber
 y(t) &=\frac{a(y(t-1), \ldots, y(t-n_y), u(t-1),\ldots, u(t-n_u), }{b(y(t-1), \ldots, y(t-n_y), u(t-1), \ldots, u(t-n_u),}\cdots \\ 
  & \cdots\frac{ e(t-1), \ldots, e(t-n_e))}{e(t-1), \ldots, e(t-n_e))} +e(t)
- \label{eq:nl_model_narmax_rat_simp}
+ \nonumber
 \end{align}
 \end{block}
 \begin{equation}
@@ -244,7 +246,7 @@ y(t)=\frac{\alpha_1 u^2(t-1)+\alpha_2y(t-1)y^2(t-2)+\alpha_3u(t-2)y(t-1)}{1+\alp
 \framesubtitle{Pode ser utilizado para modelos polinômiais}
 
 \begin{block} {Modelo}
-\begin{eqnarray}\label{eq:nl_alg_rational}
+\begin{eqnarray}\nonumber
 y(t)&=&\frac
 {a(y(t-1), ..., y(t-n_y), u(t-1), ..., u(t-n_u))}
 {b(y(t-1), ..., y(t-n_y), u(t-1), ..., u(t-n_u))}\\ \nonumber
@@ -272,7 +274,7 @@ o método dos mínimos quadrados:
 \hat{\theta}_n^i\\ 
 \hat{\theta}_{d1}^i
 \end{bmatrix}=\left [ \Psi ^T \Psi \right ]^{-1}\Psi^T y^*
-\label{nl_alg_rational_step_1}
+\nonumber
 \end{equation}
 \end{block}
 
@@ -295,12 +297,12 @@ Faça $i=i+1$. Determine os resíduos e sua variância, respectivamente como:
 
 \begin{equation}
 \xi ^i(t)=y(t)-\frac{\psi_n^T(t-1)\hat{\theta}_n}{\psi_{d}^T(t-1)\hat{\theta}_d}
-\label{nl_alg_rational_step2_res}
+\nonumber
 \end{equation}
 
 \begin{equation}
 \left ( \sigma _{\xi}^2 \right )^i=\frac{1}{N-m_d}\sum_{i=m_d+1}^{N}\left ( \xi ^i(t) \right )^2
-\label{eq:nl_alg_rational_step2_var}
+\nonumber
 \end{equation}
 \end{block}
 
@@ -314,7 +316,7 @@ usando:
 \vdots & \vdots & \vdots\\ 
 \psi_{n}^T(t+N-2) & y(t)\psi_{d1}^T(t+N-2)  & \psi_{\xi }^T(t+N-2)
 \end{bmatrix}
-\label{eq:nl_alg_rational_step3_psi}
+\nonumber
 \end{equation}
 \end{block}
 \end{frame}
@@ -364,7 +366,7 @@ E estime novamente os parâmetros utilizando:
 \hat{\theta}_{d1}^i
 \end{bmatrix}=\left [ \Psi^T \Psi - (\sigma _{\xi}^2)^i \Phi  \right ]^{-1}
 \left [ \Psi^T y^* - (\sigma _{\xi}^2)^i \phi \right ]
-\label{eq:nl_alg_rational_step5}
+\nonumber
 \end{equation}
 
 \textcolor{blue}{Passo 5}: Volte ao  \textcolor{blue}{Passo 2} até atingir convergência (de parâmetro ou de
