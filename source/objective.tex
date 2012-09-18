@@ -1,20 +1,32 @@
 %-------------------------------------------------------------------------------------------------
-\section{Objetivo e Motivação}
+\section{Introdução}
 %-------------------------------------------------------------------------------------------------
 \begin{frame}
-\frametitle{Objetivo / Motivação}
+\frametitle{Introdução}
+
+Controladores baseados em dados:
+\begin{itemize}
+ 	\item Iterativos
+ 	\begin{itemize}
+ 	  \item FDT (Frequency Domain Tuning)
+ 	  \item IFT (Iterative Feedback Tuning)
+ 	  \item CbT (Correlation-based Tuning)
+ 	\end{itemize}
+ 	\item Não iterativos
+ 	 \begin{itemize}
+ 	  \item VRFT (Virtual Reference Feedback Tuning)
+ 	\end{itemize}
+\end{itemize}
+
+\begin{block}{Conceito de referência virtual}
+Explorado pelo método VRFT, torna a função custo quadrática nos parâmetros, facilitando a forma de determinar o mínimo
+desta função.
+\end{block}
+
 
 \begin{block}{Objetivo}
-Apresentar um estudo sobre projeto de controladores não lineares utilizando identificação de
-sistemas e o conceito de referência virtual.
+Estender para duas classes de modelos não linearidades algumas das facilidades e vantagens propostas pelo método VRFT
+utilizando para isso o conceito de referência virtual.
 \end{block}
-
-\begin{block}{Motivação}
-\begin{itemize}
-	\item Controladores não lineares são pouco explorados
-	\item Para alguns tipos de sistemas, controladores não lineares conseguem ser mais performáticos
-\end{itemize}
-\end{block}
-
 \end{frame}
 

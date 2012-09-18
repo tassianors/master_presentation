@@ -1,7 +1,7 @@
 \documentclass[xcolor=dvipsnames,9pt]{beamer}
 %\usetheme{Berkeley}
 \usetheme{Warsaw} 
-\usecolortheme{default}
+\usecolortheme{seahorse}
 
 \usepackage[latin1]{inputenc}
 \usepackage[brazil]{babel}  
@@ -12,21 +12,20 @@
 \begin{document}
 %-------------------------------------------------------------------------------------------------
 %-------------------------------------------------------------------------------------------------
-\author{Tassiano Neuhaus}
 \author[Tassiano Neuhaus]{Tassiano Neuhaus\\{\small Orientador: Alexandre Sanfelice Bazanella}}
 \institute[]{PPGEE - UFRGS}
 %-------------------------------------------------------------------------------------------------
 %-------------------------------------------------------------------------------------------------
-%\subject{} \AtBeginSubsection[]
-%{
-%	\begin{frame}<beamer>
-%		\frametitle{Plan wyk³adu}
-%		\tableofcontents[currentsection,currentsubsection]
-%	\end{frame}
-%}
+\AtBeginSection[]
+{
+\begin{frame}
+	\frametitle{Sumário}
+	\tableofcontents[currentsection]
+\end{frame}
+}
 
 \title[PPGEE - UFRGS]{Projeto de controladores não lineares utilizando referência virtual}
-\subtitle{Dissertação de mestrado}
+%\subtitle{Dissertação de mestrado}
 
 \date{Setembro de 2012}
 
@@ -34,30 +33,8 @@
 \end{frame} 
 
 \begin{frame}
-\frametitle{Agenda}\tableofcontents
+\frametitle{Sumário}\tableofcontents
 \end{frame} 
-
-% Motivação
-% - porque usar identificação de sistemas não lineares
-
-% Introdução a identificação de sistemas
-%  - conceitos básicos e definições de variaveis
-
-% Modelos não lineares
-% - Modelos racionais NARMAX
-
-% Projeto de controladores
-% - Conceitos básicosde identificação baseados em dados
-
-% Utilização Referência virtual 
-% Não linearidades estáticas
-% - exemplos - resultdos obtidos
-% não linearidades dinamicas (modelos racionais)
-% exemplos  - resultados obtidos
-%
-% Conclusões
-%-------------------------------------------------------------------------------------------------
-%-------------------------------------------------------------------------------------------------
 
 \input{source/objective.tex}
 \input{source/introduction.tex}
@@ -65,11 +42,4 @@
 \input{source/dbcd.tex}
 \input{source/nl_vr.tex}
 \input{source/conclusions.tex}
-
-\begin{frame}
-	\frametitle{Questões}
-			\linespread{1.3}
-Muito Obrigado.
-\end{frame}
-
 \end{document}

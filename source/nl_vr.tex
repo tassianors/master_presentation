@@ -79,12 +79,28 @@
 \end{block}
 \vspace{\baselineskip}
 
-Classes de modelos exploradas:
+\begin{block}{Vantagens VRFT}
+\begin{itemize}
+  \item Função custo quadrática em $\theta$
+  \item Sem problemas de mínimos locais
+  \item Não iterativo
+\end{itemize}
+\end{block}
+\end{frame}
+
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Classes de modelos abordadas neste trabalho}
+%\framesubtitle{União do algoritmo de identificação de sistemas não lineares com referência virtual}
+
+
+\begin{block}{Classes de modelos exploradas:}
 \begin{itemize}
   \item Não linearidades estáticas: Sistema do tipo Wiener
   \item Não linearidades dinâmicas: Sistema racional (NARMAX)
 \end{itemize}
-
+\end{block}
 \end{frame}
 
 %-------------------------------------------------------------------------------------------------
@@ -147,7 +163,7 @@ y(t) & = & \phi( z(t)) \nonumber
 \end{figure}
 
 \column{0.5\textwidth}
-Controlador: Hammerstein
+Controlador: 
 % HAMMERSTEIN Controller
 \begin{eqnarray}
 u(t) & = & C_d'(z) v(t)  \nonumber\\
@@ -324,7 +340,7 @@ M(z)=\frac{0.4}{z-0.6}
 \vspace{\baselineskip}
 Classe de controlador (PI):
 \begin{equation}
-C(z,\theta) = \theta_1 \frac{1}{z-1} + \theta_2 \frac{z}{z-1}
+C(z,\rho) = \rho_1 \frac{1}{z-1} + \rho_2 \frac{z}{z-1}
 \nonumber
 \end{equation}
 
@@ -358,10 +374,8 @@ u_f(t) =&  \theta_1 \epsilon (t)+ \theta_2 \epsilon ^2(t)+ \theta_3 \epsilon^3(t
 \end{align}
 \end{block}
 
-
-
 \column{0.4\textwidth}
-100 Monte Carlo experimentos foram realizados e a média das estimativas obtidas foi:
+100 experimentos Monte Carlo foram realizados e a média das estimativas foi:
 
 \begin{equation}
 \theta_{\text{média}} =\begin{bmatrix}
@@ -374,12 +388,11 @@ u_f(t) =&  \theta_1 \epsilon (t)+ \theta_2 \epsilon ^2(t)+ \theta_3 \epsilon^3(t
 \end{columns}
 \vspace{\baselineskip}
 
-O custo obtido foi: $J^{MR}(\theta_{\text{média}})=3.0078\times10^{-3}$;
+O custo obtido foi: \textcolor{red}{$J_y(\theta_{\text{média}})=3.0078\times10^{-3}$}
 \end{frame}
 
 %-------------------------------------------------------------------------------------------------
 %-------------------------------------------------------------------------------------------------
-% TODO: preciso trocar o \omega por z(t).
 \begin{frame}
 \frametitle{Sistema do tipo Wiener}
 \framesubtitle{Exemplo numérico}
@@ -437,7 +450,7 @@ O custo obtido foi: $J^{MR}(\theta_{\text{média}})=3.0078\times10^{-3}$;
 \frametitle{Projeto de controladores não lineares baseados em dados}
 \framesubtitle{Sistema Racionais - Não linearidade na dinâmica do sistema}
 
-Sistemas racionais
+\centerline{Sistemas racionais}
 \end{frame}
 %-------------------------------------------------------------------------------------------------
 %-------------------------------------------------------------------------------------------------
@@ -447,8 +460,8 @@ Sistemas racionais
 \fontsize{7}{7}\selectfont
 
 \begin{block}{}
-  Quando a planta é um sistema racional e o comportamento em malha fechada é linear, o controlador ótimo pode ser
-  também reprentado por um modelo racional.
+  Quando a planta é um sistema racional e o comportamento em malha fechada é linear, o controlador ideal pode ser
+  também representado por um modelo racional.
 \end{block}
 \vspace{\baselineskip}
 
@@ -480,7 +493,7 @@ y(t)=0.4r(t-1)+0.6y(t-1)
 \end{columns}
 \vspace{\baselineskip}
 
-\begin{block}{Controlador ótimo para este conjunto}
+\begin{block}{Controlador ideal para este conjunto}
 \begin{equation}
 u(t)=\frac{0.4r(t)+0.6y(t)+0.1y^2(t-1)r(t)+0.15y(t)y^2(t-1)}{1+0.5y(t)}
 \nonumber

@@ -1,5 +1,5 @@
 %-------------------------------------------------------------------------------------------------
-\section{Introdução} 
+\section{Definições} 
 %-------------------------------------------------------------------------------------------------
 \begin{frame}
 \frametitle{Definições}
@@ -10,8 +10,8 @@ Sistemas {\it{Single input single output}} (SISO) discretos:
 y(t)=G_0(z)u(t)+H_0(z)e(t)
 \nonumber
 \end{equation}
-onde $G_0(z)$ é a representação da planta real do sistema, $H_0$ é a representação do filtro que atua sobre o ruido
-$e(t)$. $y(t)$ é a saída e $u(t)$ é a entrada do sistema.
+onde $G_0(z)$ é a representação da planta real do sistema, $H_0(z)$ é a representação do filtro que atua sobre o ruído
+branco $e(t)$. $y(t)$ é a saída e $u(t)$ é a entrada do sistema.
 
 \end{block}
 \end{frame}
@@ -23,7 +23,7 @@ $e(t)$. $y(t)$ é a saída e $u(t)$ é a entrada do sistema.
 \begin{frame}
 \frametitle{Definições}
 \framesubtitle{Identificação de sistemas}
-Identificação de sistemas pode ser dividido em 3 partes principais:
+Identificação de sistemas contém três componentes principais:
 
 \begin{itemize}
 	\item O sistema real a ser identificado $\mathcal{S}$
@@ -70,14 +70,16 @@ Identificação de sistemas pode ser dividido em 3 partes principais:
 %-------------------------------------------------------------------------------------------------
 \begin{frame}
 \frametitle{Definições}
-\framesubtitle{Propriedades estatisticas das estimativas}
+\framesubtitle{Propriedades estatísticas das estimativas}
 
 \begin{itemize}
-  \item $\theta$: Representa a estimativa obtida com um experimento.
-  \item $\theta_0$: conjunto de parametros que faz com que:
+  \item $\theta_0$: conjunto de parâmetros que faz com que:
   
   \begin{equation}
-  G(z, \theta_0)\equiv G_0(z)
+  	\left\{\begin{matrix}
+G(z, \theta_0)\triangleq G_0(z)\\ 
+H(z, \theta_0)\triangleq H_0(z)
+\end{matrix}\right.
   \nonumber
   \end{equation}
   
@@ -94,7 +96,7 @@ Identificação de sistemas pode ser dividido em 3 partes principais:
 
 \begin{frame}
 \frametitle{Definições}
-\framesubtitle{Propriedades estatisticas das estimativas - Erros envolvidos}
+\framesubtitle{Propriedades estatísticas das estimativas - Erros envolvidos}
 
 \begin{block}{Erros atrelados às estimativas}
 \begin{align*}
@@ -107,7 +109,7 @@ Onde observa-se que o erro de polarização é a diferença entre o valor real $G_0(
 (quando $N\to\infty$) $G(z, \theta^*)$.
 \vspace{\baselineskip}
 
-Erro de variância é a diferênça entre cada uma das estimativas obtidas e a estimativa quando $N \to \infty$ $G(z,
+Erro de variância é a diferença entre cada uma das estimativas obtidas e a estimativa quando $N \to \infty$ $G(z,
 \theta^*)$
 \end{frame}
 %-------------------------------------------------------------------------------------------------
@@ -115,7 +117,7 @@ Erro de variância é a diferênça entre cada uma das estimativas obtidas e a estim
 
 \begin{frame}
 \frametitle{Definições}
-\framesubtitle{Propriedades estatisticas das estimativas - Elipse de confiança}
+\framesubtitle{Propriedades estatísticas das estimativas - Elipse de confiança}
 
 \begin{columns}
 \column{0.5\textwidth}
@@ -144,54 +146,4 @@ onde:
 \end{figure}
 \end{columns}
 \end{frame}
-%-------------------------------------------------------------------------------------------------
-\subsection{Sinais utilizados} 
-%-------------------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Definições}
-\framesubtitle{Sinal PRBS}
- 
-\begin{block}{Sinal PRBS}
-\begin{equation}
-u(t)=rem(A(z)u(t), 2)=rem(a_1 u(t-1)+...+a_n u(t-n), 2)
-\nonumber
-\end{equation}
-\end{block}
-
-\begin{columns}
-\column{0.35\textwidth}
-
-\begin{table}
-\fontsize{6}{8}\selectfont
-\begin{center}
-\begin{tabular}{ccc}
-\hline
-        Ordem $n$ & $M=2^n-1$ & $a_k$ não   \\
-        & & zeros para $k$ \\
-\hline
-        2       & 3        & 1, 2       \\
-        3       & 7        & 2, 3       \\
-        4       & 15       & 1, 4       \\
-        5       & 31       & 2, 5       \\
-        6       & 63       & 1, 6       \\
-        7       & 127      & 3, 7       \\
-        8       & 255      & 1, 2, 7, 8 \\
-        9       & 511      & 4, 9       \\
-        10      & 1023     & 7, 10      \\
-        11      & 2047     & 9, 11      \\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-\column{0.7\textwidth}
-\begin{figure}[htbp]
-	\center
-	\includegraphics[width=0.95\columnwidth]{figures/si_project_prbs.eps}
-	\caption{Sinal PRBS para $n=7$}
-	\label{fig:si_project_prbs}
-\end{figure}
-\end{columns}
-\end{frame}
-
 

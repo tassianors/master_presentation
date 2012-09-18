@@ -8,10 +8,10 @@
 \framesubtitle{Sistemas lineares - SISO de tempo discreto}
 
 \begin{columns}
-\column{0.6\textwidth}
+\column{0.55\textwidth}
 	\begin{block}{Classe de modelos genérica}
 	\begin{equation}
-		A(z)y(t)=\frac{B(z)}{F(z)}u(t)+\frac{C(z)}{D(z)}e(t)
+		A(z, \theta)y(t)=\frac{B(z, \theta)}{F(z, \theta)}u(t)+\frac{C(z, \theta)}{D(z, \theta)}e(t)
 		\nonumber
 	\end{equation}
 	\end{block}
@@ -24,7 +24,13 @@
 		F(z, \theta) &= 1+f_1z^{-1}+...+f_{nf}z^{-n_f}
 	\end{align*}
 	
-\column{0.4\textwidth}
+\column{0.45\textwidth}
+	\begin{equation}
+\theta=\begin{bmatrix}
+a_1 & ... & a_n & b_1 & ... & b_n & ...
+\end{bmatrix}
+\nonumber
+\end{equation}
 \begin{small}
 \begin{table}
 \begin{center}
@@ -58,7 +64,7 @@
 
 \begin{itemize}
   \item Muitos são os tipos de classes de modelos para sistemas não lineares.
-  \item Eles podem ser divididos em dois típos principais:
+  \item Eles podem ser divididos em dois tipos principais:
 \begin{itemize}
   \item Não linearidades estáticas
   \item Não linearidades dinâmicas  
@@ -150,7 +156,7 @@
     \item Redes neurais multi camadas
     \item Redes neurais recorrente
   \end{itemize}
-  \item \textcolor{blue}{Funções radiais de base}: Casos particulares de redes neurais, mas lineares nos parametros
+  \item \textcolor{blue}{Funções radiais de base}: Casos particulares de redes neurais, mas lineares nos parâmetros
   $\omega_i$.
   \begin{equation}
 	f(y)=\omega_0+\sum_{i}\omega_i \phi (\left \| y-c_i \right \|)
@@ -176,32 +182,32 @@ $u(t)$ e $e(t)$; $\theta$ é o vetor de parâmetros a ser identificado.
 
 \end{frame}
 
-%-------------------------------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Classes de modelos - NARMAX}
-\framesubtitle{Modelo Polinômial}
-
-\begin{block} {Modelo polinômial}
-\begin{equation}
-y(t)=\sum_{m=0}^{l}\sum_{p=0}^{m}\sum_{n1, n_m}^{n_y, n_u}c_{p,m-p}(n_1,...,n_m)\prod_{i=1}^{p}y(t-n_i)\prod_{i=p+1}^{m}u(t-n_i)
-\nonumber
-\end{equation}
-sendo que
-
-\begin{equation}
-\sum_{n1,n_m}^{n_y,n_u}\equiv \sum_{n_1=1}^{n_y}\cdots\sum_{n_m=1}^{n_y}
-\nonumber
-\end{equation}
-\end{block}
-
-Exemplo:
-
-\begin{equation}
-y(t)=\alpha_1 u^2(t-1)+\alpha_2y(t-1)y^2(t-2)+\alpha_3u(t-2)y(t-1)
-\nonumber
-\end{equation}
-
-\end{frame}
+%%-------------------------------------------------------------------------------------------------
+%\begin{frame}
+%\frametitle{Classes de modelos - NARMAX}
+%\framesubtitle{Modelo Polinômial}
+%
+%\begin{block} {Modelo polinômial}
+%\begin{equation}
+%y(t)=\sum_{m=0}^{l}\sum_{p=0}^{m}\sum_{n1, n_m}^{n_y, n_u}c_{p,m-p}(n_1,...,n_m)\prod_{i=1}^{p}y(t-n_i)\prod_{i=p+1}^{m}u(t-n_i)
+%\nonumber
+%\end{equation}
+%sendo que
+%
+%\begin{equation}
+%\sum_{n1,n_m}^{n_y,n_u}\equiv \sum_{n_1=1}^{n_y}\cdots\sum_{n_m=1}^{n_y}
+%\nonumber
+%\end{equation}
+%\end{block}
+%
+%Exemplo:
+%
+%\begin{equation}
+%y(t)=\alpha_1 u^2(t-1)+\alpha_2y(t-1)y^2(t-2)+\alpha_3u(t-2)y(t-1)
+%\nonumber
+%\end{equation}
+%
+%\end{frame}
 
 %-------------------------------------------------------------------------------------------------
 \begin{frame}
@@ -237,13 +243,36 @@ y(t)=\frac{\alpha_1 u^2(t-1)+\alpha_2y(t-1)y^2(t-2)+\alpha_3u(t-2)y(t-1)}{1+\alp
 \end{frame}
 
 %-------------------------------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Enfoque deste trabalho}
+%\framesubtitle{Pode ser utilizado para modelos polinômiais}
+
+Neste trabalho serão abordados dois tipos principais de classes de modelos:
+
+\begin{itemize}
+	\item Modelo do tipo Wiener
+	\begin{itemize}
+		\item Subclasse onde a não linearidade estática é um polinómio
+	\end{itemize}
+	\item Modelo do tipo racional
+\end{itemize}
+
+\begin{block}{}
+	\begin{itemize}
+		\item Para a identificação do modelo Wiener, o método dos mínimos quadrados pode ser utilizado.
+		\item Para a identificação do modelo racional o algoritmo seguinte será utilizado: 
+	\end{itemize}
+	\end{block} 
+\end{frame}
+
+%-------------------------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------------------------
 \subsection{Algoritmo de identificação de sistemas racionais} 
 %-------------------------------------------------------------------------------------------------
-
 %-------------------------------------------------------------------------------------------------
 \begin{frame}
 \frametitle{Algoritmo para identificação de modelos racionais}
-\framesubtitle{Pode ser utilizado para modelos polinômiais}
+\framesubtitle{Pode ser utilizado para modelos polinomiais}
 
 \begin{block} {Modelo}
 \begin{eqnarray}\nonumber
@@ -260,6 +289,7 @@ y(t)&=&\frac
 \end{itemize}
 
 \end{frame}
+
 %-------------------------------------------------------------------------------------------------
 \begin{frame}
 \frametitle{Algoritmo para identificação de modelos racionais}
@@ -286,6 +316,21 @@ o método dos mínimos quadrados:
 \end{bmatrix}
 \nonumber
 \end{equation}
+
+\begin{columns}
+\column{0.2\textwidth}
+Onde:
+\column{0.4\textwidth}
+\begin{equation}
+\psi _n^T(t-1)\theta_n=\sum_{j=1}^{N_n}p_{nj}\theta_{nj}
+\nonumber
+\end{equation}
+\column{0.4\textwidth}
+\begin{equation}
+\psi _d^T(t-1)\theta_d=\sum_{j=1}^{N_d}p_{dj}\theta_{dj}
+\nonumber
+\end{equation}
+\end{columns}
 \end{frame}
 
 %-------------------------------------------------------------------------------------------------
